@@ -6,13 +6,266 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
+    <ImageView
+        android:id="@+id/mainWallImage"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:src="@mipmap/home_bg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/homeBoardImage"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="25dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:src="@mipmap/home_board"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnSoundHomeScreen" />
+
+
+    <ImageButton
+        android:id="@+id/btnSoundHomeScreen"
+        android:layout_width="37dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/sound_on" />
+
+    <RelativeLayout
+        android:id="@+id/cont"
+        android:layout_width="360dp"
+        android:layout_height="360dp"
+        android:background="@color/blue_color"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/homeBoardImage">
+
+
+    </RelativeLayout>
+
+
+    <View
+        android:id="@+id/viewSettingBg"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:alpha="0.65"
+        android:background="@android:color/black"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btnSetting"
+        android:layout_width="37dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="12dp"
+        android:background="@null"
+        android:onClick="settingClicked"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/setting"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_btn_setting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_gravity="center"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="6dp"
+        android:background="@null"
+        android:outlineProvider="none"
+        android:scaleType="center"
+        android:src="@mipmap/setting"
+        app:backgroundTint="@android:color/transparent"
+        app:fabSize="normal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:maxImageSize="39dp"
+        app:tint="@null" />
+
+    <!--Floating action button for add alarm-->
+    <!--Make sure that you are constraining this
+        button to the parent button-->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_img_rateUs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:background="@null"
+        android:onClick="rateAppTabClicked"
+        android:outlineProvider="none"
+        android:scaleType="center"
+        app:backgroundTint="@android:color/transparent"
+        app:fabSize="normal"
+        app:layout_constraintEnd_toEndOf="@+id/fab_btn_setting"
+        app:layout_constraintStart_toStartOf="@+id/fab_btn_setting"
+        app:layout_constraintTop_toBottomOf="@+id/fab_btn_setting"
+        app:maxImageSize="35dp"
+        app:srcCompat="@mipmap/rate_us"
+        app:tint="@null" />
+
+    <!--Action name text for the add alarm button-->
+    <!--Make sure that you are constraining this Text to
+        the add Alarm FAB button-->
+    <TextView
+        android:id="@+id/fab_txt_rateUs"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:background="#00FFFFFF"
+        android:gravity="center_vertical"
+        android:onClick="rateAppTabClicked"
+        android:text="Rate &amp; Review"
+        android:textColor="@color/white"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/fab_img_rateUs"
+        app:layout_constraintStart_toEndOf="@+id/fab_img_rateUs"
+        app:layout_constraintTop_toTopOf="@+id/fab_img_rateUs" />
+
+    <!--Floating action button for add person-->
+    <!--Make sure that you are constraining this
+        button to the add Alarm FAB button-->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_img_shareApp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@null"
+        android:onClick="shareAppClicked"
+        android:outlineProvider="none"
+        android:scaleType="center"
+        app:backgroundTint="@android:color/transparent"
+        app:fabSize="normal"
+        app:layout_constraintEnd_toEndOf="@+id/fab_img_rateUs"
+        app:layout_constraintStart_toStartOf="@+id/fab_img_rateUs"
+        app:layout_constraintTop_toBottomOf="@+id/fab_img_rateUs"
+        app:maxImageSize="35dp"
+        app:srcCompat="@mipmap/share_app"
+        app:tint="@null" />
+
+    <!--Action name text for the add person button-->
+    <!--Make sure that you are constraining this Text
+        to the add Person FAB button-->
+    <TextView
+        android:id="@+id/fab_txt_shareApp"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:background="#00FFFFFF"
+        android:gravity="center_vertical"
+        android:onClick="shareAppClicked"
+        android:text="Share App"
+        android:textColor="@color/white"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/fab_img_shareApp"
+        app:layout_constraintStart_toStartOf="@+id/fab_txt_rateUs"
+        app:layout_constraintTop_toTopOf="@+id/fab_img_shareApp" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_img_otherApps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@null"
+        android:onClick="otherAppsTabClicked"
+        android:outlineProvider="none"
+        android:scaleType="center"
+        app:backgroundTint="@android:color/transparent"
+        app:fabSize="normal"
+        app:layout_constraintEnd_toEndOf="@+id/fab_img_shareApp"
+        app:layout_constraintStart_toStartOf="@+id/fab_img_shareApp"
+        app:layout_constraintTop_toBottomOf="@+id/fab_img_shareApp"
+        app:maxImageSize="35dp"
+        app:srcCompat="@mipmap/other_apps"
+        app:tint="@null" />
+
+
+    <!--Action name text for the add person button-->
+    <!--Make sure that you are constraining this Text
+        to the add Person FAB button-->
+    <TextView
+        android:id="@+id/fab_txt_otherApps"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:background="#00FFFFFF"
+        android:gravity="center_vertical"
+        android:onClick="otherAppsTabClicked"
+        android:text="Our Other Apps"
+        android:textColor="@color/white"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/fab_img_otherApps"
+        app:layout_constraintStart_toStartOf="@+id/fab_txt_rateUs"
+        app:layout_constraintTop_toTopOf="@+id/fab_img_otherApps" />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_img_privacyPolicy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@null"
+        android:onClick="privacyTabClicked"
+        android:outlineProvider="none"
+        android:scaleType="center"
+        app:backgroundTint="@android:color/transparent"
+        app:fabSize="normal"
+        app:layout_constraintEnd_toEndOf="@+id/fab_img_otherApps"
+        app:layout_constraintStart_toStartOf="@+id/fab_img_otherApps"
+        app:layout_constraintTop_toBottomOf="@+id/fab_img_otherApps"
+        app:maxImageSize="35dp"
+        app:srcCompat="@mipmap/privacy_policy"
+        app:tint="@null" />
+
+
+    <!--Action name text for the add person button-->
+    <!--Make sure that you are constraining this Text
+        to the add Person FAB button-->
+    <TextView
+        android:id="@+id/fab_txt_privacyPolicy"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:background="#00FFFFFF"
+        android:gravity="center_vertical"
+        android:onClick="privacyTabClicked"
+        android:text="Privacy Policy"
+        android:textColor="@color/white"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/fab_img_privacyPolicy"
+        app:layout_constraintStart_toStartOf="@+id/fab_txt_rateUs"
+        app:layout_constraintTop_toTopOf="@+id/fab_img_privacyPolicy" />
+
+
+    <ImageView
+        android:id="@+id/imgViewSettingBg"
+        android:layout_width="250dp"
+        android:layout_height="375dp"
+        android:scaleType="fitXY"
+        android:src="@mipmap/setting_pink"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
