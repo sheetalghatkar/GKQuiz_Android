@@ -44,14 +44,14 @@
 
     <ImageButton
         android:id="@+id/btnHomePrivacyPolicy"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="5dp"
         android:background="@null"
         android:scaleType="fitCenter"
-        android:src="@mipmap/back_btn"
+        android:src="@mipmap/home_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/abc_vector_test" />

@@ -1,5 +1,6 @@
 package com.mobiapps360.GKQuiz;
 
+import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
@@ -36,9 +37,12 @@ import android.view.View;
 import androidx.core.view.ViewCompat;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
+import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -69,6 +73,15 @@ public class MainActivity extends AppCompatActivity {
     RelativeLayout optionsRelativeLayout;
     RotateAnimation rC;
     int getwidth = 100;
+    int xAdd = 100;
+    int yAdd = 100;
+    ImageButton imgBtnBasicGk;
+    ImageButton imgBtnEnglish;
+    ImageButton imgBtnWild;
+    ImageButton imgBtnSpace;
+    ImageButton imgBtnWorldGk;
+    ImageButton imgBtnHealth;
+
     //    private AdView mAdView;
 //    AdRequest adRequest;
 //    public static ArrayList<GuessTimeItem>  guessTimeDataArray;
@@ -100,6 +113,13 @@ public class MainActivity extends AppCompatActivity {
         viewSettingBg = findViewById(R.id.viewSettingBg);
         imgViewsettingBg = findViewById(R.id.imgViewSettingBg);
         optionsRelativeLayout = (RelativeLayout) findViewById(R.id.cont);
+
+
+
+
+
+
+
         System.out.println("Inside --"+Resources.getSystem().getDisplayMetrics().widthPixels);
         Display display = getWindowManager().getDefaultDisplay();
         Point m_size = new Point();
@@ -107,6 +127,11 @@ public class MainActivity extends AppCompatActivity {
         int m_width = m_size.x;
         int m_height = m_size.y;
         getwidth = (int) (1080 / Resources.getSystem().getDisplayMetrics().density);
+
+        xAdd = getwidth;
+        yAdd = getwidth;
+
+
 //        System.out.println("My Width : "+ m_width);
 //        System.out.println("My Height : "+ (int) (1080 / Resources.getSystem().getDisplayMetrics().density));
 
@@ -175,215 +200,65 @@ public class MainActivity extends AppCompatActivity {
         }
         // guessTimeDataArray = parseGuessTimeArray("guess_time");
 
-//        View v = findViewById(R.id.cont);
-        //TextView text1 = findViewById(R.id.text1);
-        TextView text1 =  new TextView(this);
-        TextView text2 =  new TextView(this);
-        TextView text3 =  new TextView(this);
-        TextView text4 =  new TextView(this);
-        TextView text5 =  new TextView(this);
-        TextView text6 =  new TextView(this);
 
-        int xAdd = 300;
-        int yAdd = 300;
 
-         RelativeLayout.LayoutParams lp6 = new RelativeLayout.LayoutParams(100, 100);
-        text6.setBackgroundColor(getResources().getColor(R.color.pink_color));
-        int durationMillis = 10000;
-        int numViews = 5;
-        float angleDeg = 5 * 360.0f / 6 - 90.0f;
+        imgBtnBasicGk = findViewById(R.id.imgBtnBasicGk);
+        imgBtnEnglish = findViewById(R.id.imgBtnEnglish);
+        imgBtnWild = findViewById(R.id.imgBtnWild);
+        imgBtnSpace = findViewById(R.id.imgBtnSpace);
+        imgBtnWorldGk = findViewById(R.id.imgBtnWorldGk);
+        imgBtnHealth = findViewById(R.id.imgBtnHealth);
+
+        imgBtnBasicGk.setBackgroundResource(R.mipmap.basic_gk);
+        imgBtnEnglish.setBackgroundResource(R.mipmap.english);
+        imgBtnWild.setBackgroundResource(R.mipmap.wild_aquatic);
+        imgBtnSpace.setBackgroundResource(R.mipmap.space);
+        imgBtnWorldGk.setBackgroundResource(R.mipmap.world_gk);
+        imgBtnHealth.setBackgroundResource(R.mipmap.health);
+
+
+        RelativeLayout.LayoutParams layoutParam1 = new RelativeLayout.LayoutParams(250, 250);
+        float angleDeg = 0 * 360.0f / 6 - 90.0f;
         float angleRad = (float) (angleDeg * Math.PI / 180.0f);
-        lp6.leftMargin = (int)(300 * (float) Math.cos(angleRad)) + xAdd;
-        lp6.topMargin = (int)(300 * (float) Math.sin(angleRad)) + yAdd;
-//        text5.setX(300 * (float) Math.cos(angleRad));
-//        text5.setY(300 * (float) Math.sin(angleRad));
-        text6.setText("M");
-        text6.setLayoutParams(lp6);
-        RotateAnimation t6 = new RotateAnimation(0, 360,
-                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        t6.setDuration(durationMillis);
-        t6.setInterpolator(new LinearInterpolator());
-        t6.setRepeatMode(Animation.RESTART);
-        t6.setRepeatCount(Animation.INFINITE);
-        optionsRelativeLayout.addView(text6, lp6);
-        text6.startAnimation(t6);
+        layoutParam1.leftMargin = (int)(getwidth * (float) Math.cos(angleRad)) + xAdd;
+        layoutParam1.topMargin = (int)(getwidth * (float) Math.sin(angleRad)) + yAdd;
+        imgBtnBasicGk.setLayoutParams(layoutParam1);
 
 
-
-        RelativeLayout.LayoutParams lp5 = new RelativeLayout.LayoutParams(100, 100);
-        text5.setBackgroundColor(getResources().getColor(R.color.red_done));
-         angleDeg = 0 * 360.0f / 6 - 90.0f;
-         angleRad = (float) (angleDeg * Math.PI / 180.0f);
-        lp5.leftMargin = (int)(300 * (float) Math.cos(angleRad)) + xAdd;
-        lp5.topMargin = (int)(300 * (float) Math.sin(angleRad)) + yAdd;
-//        text5.setX(300 * (float) Math.cos(angleRad));
-//        text5.setY(300 * (float) Math.sin(angleRad));
-        text5.setText("M");
-        text5.setLayoutParams(lp5);
-        RotateAnimation t5 = new RotateAnimation(0, 360,
-                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        t5.setDuration(durationMillis);
-        t5.setInterpolator(new LinearInterpolator());
-        t5.setRepeatMode(Animation.RESTART);
-        t5.setRepeatCount(Animation.INFINITE);
-        optionsRelativeLayout.addView(text5, lp5);
-         text5.startAnimation(t5);
-
-
-
-
-        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(100, 100);
-        text1.setBackgroundColor(getResources().getColor(R.color.green_done));
-         angleDeg = 1 * 360.0f / 6 - 90.0f;
-         angleRad = (float) (angleDeg * Math.PI / 180.0f);
-//        text1.setX(300 * (float) Math.cos(angleRad));
-//        text1.setY(300 * (float) Math.sin(angleRad));
-        lp.leftMargin = (int)(300 * (float) Math.cos(angleRad)) + xAdd;
-        lp.topMargin = (int)(300 * (float) Math.sin(angleRad)) + yAdd;
-//        text1.setTranslationX(300 * (float) Math.cos(angleRad));
-//        text1.setTranslationY(300 * (float) Math.sin(angleRad));
-        text1.setLayoutParams(lp);
-        text1.setText("Y");
-        RotateAnimation t1 = new RotateAnimation(0, 360,
-                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        t1.setDuration(durationMillis);
-        t1.setInterpolator(new LinearInterpolator());
-        t1.setRepeatMode(Animation.RESTART);
-        t1.setRepeatCount(Animation.INFINITE);
-        optionsRelativeLayout.addView(text1, lp);
-        text1.startAnimation(t1);
-
-
-        RelativeLayout.LayoutParams lp2 = new RelativeLayout.LayoutParams(100, 100);
-        text2.setBackgroundColor(getResources().getColor(R.color.pink_color));
-        angleDeg = 2 * 360.0f / 6 - 90.0f;
-        angleRad = (float) (angleDeg * Math.PI / 180.0f);
-//        text2.setX(300 * (float) Math.cos(angleRad));
-//        text2.setY(300 * (float) Math.sin(angleRad));
-        lp2.leftMargin = (int)(300 * (float) Math.cos(angleRad)) + xAdd;
-        lp2.topMargin = (int)(300 * (float) Math.sin(angleRad)) + yAdd;
-
-//        text2.setTranslationX(300 * (float) Math.cos(angleRad));
-//        text2.setTranslationY(300 * (float) Math.sin(angleRad));
-
-        text2.setLayoutParams(lp2);
-        text2.setText("K");
-        RotateAnimation t2 = new RotateAnimation(0, 360,
-                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        t2.setDuration(durationMillis);
-        t2.setInterpolator(new LinearInterpolator());
-        t2.setRepeatMode(Animation.RESTART);
-        t2.setRepeatCount(Animation.INFINITE);
-        optionsRelativeLayout.addView(text2, lp2);
-         text2.startAnimation(t2);
-
-        RelativeLayout.LayoutParams lp3 = new RelativeLayout.LayoutParams(100, 100);
-        text3.setBackgroundColor(getResources().getColor(R.color.white));
-        angleDeg = 3 * 360.0f / 6 - 90.0f;
-        angleRad = (float) (angleDeg * Math.PI / 180.0f);
-//        text3.setX(300 * (float) Math.cos(angleRad));
-//        text3.setY(300 * (float) Math.sin(angleRad));
-        lp3.leftMargin = (int)(300 * (float) Math.cos(angleRad)) + xAdd;
-        lp3.topMargin = (int)(300 * (float) Math.sin(angleRad)) + yAdd;
-//        text3.setTranslationX(300 * (float) Math.cos(angleRad));
-//        text3.setTranslationY(300 * (float) Math.sin(angleRad));
-        text3.setLayoutParams(lp3);
-        text3.setText("L");
-
-        RotateAnimation t3 = new RotateAnimation(0, 360,
-                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        t3.setDuration(durationMillis);
-        t3.setInterpolator(new LinearInterpolator());
-        t3.setRepeatMode(Animation.RESTART);
-        t3.setRepeatCount(Animation.INFINITE);
-        optionsRelativeLayout.addView(text3, lp3);
-         text3.startAnimation(t3);
-
-
-        RelativeLayout.LayoutParams lp4 = new RelativeLayout.LayoutParams(100, 100);
-        text4.setBackgroundColor(getResources().getColor(R.color.black));
-        angleDeg = 4 * 360.0f / 6 - 90.0f;
-        angleRad = (float) (angleDeg * Math.PI / 180.0f);
-
-//        text4.setX(300 * (float) Math.cos(angleRad));
-//        text4.setY(300 * (float) Math.sin(angleRad));
-        lp4.leftMargin = (int)(300 * (float) Math.cos(angleRad)) + xAdd;
-        lp4.topMargin = (int)(300 * (float) Math.sin(angleRad)) + yAdd;
-//        text4.setTranslationX(300 * (float) Math.cos(angleRad));
-//        text4.setTranslationY(300 * (float) Math.sin(angleRad));
-        text4.setLayoutParams(lp4);
-        text4.setText("F");
-
-        RotateAnimation t4 = new RotateAnimation(0, 360,
-                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        t4.setDuration(durationMillis);
-        t4.setInterpolator(new LinearInterpolator());
-        t4.setRepeatMode(Animation.RESTART);
-        t4.setRepeatCount(Animation.INFINITE);
-        optionsRelativeLayout.addView(text4, lp4);
-        text4.startAnimation(t4);
-        text4.setTextColor(getResources().getColor(R.color.white));
-        text4.startAnimation(t4);
-
-       /* text2.setBackgroundColor(getResources().getColor(R.color.blue_color));
+        RelativeLayout.LayoutParams layoutParam2 = new RelativeLayout.LayoutParams(250, 250);
         angleDeg = 5 * 360.0f / 6 - 90.0f;
         angleRad = (float) (angleDeg * Math.PI / 180.0f);
-        lp.leftMargin = (int)(10 * (float) Math.cos(angleRad));
-        lp.topMargin = (int)(10 * (float) Math.sin(angleRad));
-        text2.setVisibility(View.VISIBLE);
-        text2.setLayoutParams(lp);
+        layoutParam2.leftMargin = (int)(getwidth * (float) Math.cos(angleRad)) + xAdd;
+        layoutParam2.topMargin = (int)(getwidth * (float) Math.sin(angleRad)) + yAdd;
+        imgBtnEnglish.setLayoutParams(layoutParam2);
 
-        v.addView(text2, lp);
+        RelativeLayout.LayoutParams layoutParam3 = new RelativeLayout.LayoutParams(250, 250);
+         angleDeg = 2 * 360.0f / 6 - 90.0f;
+         angleRad = (float) (angleDeg * Math.PI / 180.0f);
+        layoutParam3.leftMargin = (int)(getwidth * (float) Math.cos(angleRad)) + xAdd;
+        layoutParam3.topMargin = (int)(getwidth * (float) Math.sin(angleRad)) + yAdd;
+        imgBtnWild.setLayoutParams(layoutParam3);
 
-        RotateAnimation t2 = new RotateAnimation(60, 360,
-                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        t2.setDuration(durationMillis);
-        t2.setInterpolator(new LinearInterpolator());
-        t2.setRepeatMode(Animation.RESTART);
-        t2.setRepeatCount(Animation.INFINITE);
-      //  text2.startAnimation(t2);*/
+        RelativeLayout.LayoutParams layoutParam4 = new RelativeLayout.LayoutParams(250, 250);
+        angleDeg = 3 * 360.0f / 6 - 90.0f;
+        angleRad = (float) (angleDeg * Math.PI / 180.0f);
+        layoutParam4.leftMargin = (int)(getwidth * (float) Math.cos(angleRad)) + xAdd;
+        layoutParam4.topMargin = (int)(getwidth * (float) Math.sin(angleRad)) + yAdd;
+        imgBtnSpace.setLayoutParams(layoutParam4);
 
-     /*   RotateAnimation t2 = new RotateAnimation(60, 360,
-                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        t2.setDuration(durationMillis);
-        t2.setInterpolator(new LinearInterpolator());
-        t2.setRepeatMode(Animation.RESTART);
-        t2.setRepeatCount(Animation.INFINITE);
-        text2.startAnimation(t2);
+        RelativeLayout.LayoutParams layoutParam5 = new RelativeLayout.LayoutParams(250, 250);
+        angleDeg = 4 * 360.0f / 6 - 90.0f;
+        angleRad = (float) (angleDeg * Math.PI / 180.0f);
+        layoutParam5.leftMargin = (int)(getwidth * (float) Math.cos(angleRad)) + xAdd;
+        layoutParam5.topMargin = (int)(getwidth * (float) Math.sin(angleRad)) + yAdd;
+        imgBtnWorldGk.setLayoutParams(layoutParam5);
 
-        RotateAnimation t3 = new RotateAnimation(120, 360,
-                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        t3.setDuration(durationMillis);
-        t3.setInterpolator(new LinearInterpolator());
-        t3.setRepeatMode(Animation.RESTART);
-        t3.setRepeatCount(Animation.INFINITE);
-        text3.startAnimation(t3);
-
-        RotateAnimation t4 = new RotateAnimation(180, 360,
-                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        t4.setDuration(durationMillis);
-        t4.setInterpolator(new LinearInterpolator());
-        t4.setRepeatMode(Animation.RESTART);
-        t4.setRepeatCount(Animation.INFINITE);
-        text4.startAnimation(t4);
-
-        RotateAnimation t5 = new RotateAnimation(240, 360,
-                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        t5.setDuration(durationMillis);
-        t5.setInterpolator(new LinearInterpolator());
-        t5.setRepeatMode(Animation.RESTART);
-        t5.setRepeatCount(Animation.INFINITE);
-        text5.startAnimation(t5);*/
-
-        rC = new RotateAnimation(360, 0,
-                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        rC.setDuration(durationMillis);
-        rC.setInterpolator(new LinearInterpolator());
-        rC.setRepeatMode(Animation.RESTART);
-        rC.setRepeatCount(Animation.INFINITE);
-        optionsRelativeLayout.startAnimation(rC);
-//
-
+        RelativeLayout.LayoutParams layoutParam6 = new RelativeLayout.LayoutParams(250, 250);
+        angleDeg = 1     * 360.0f / 6 - 90.0f;
+        angleRad = (float) (angleDeg * Math.PI / 180.0f);
+        layoutParam6.leftMargin = (int)(getwidth * (float) Math.cos(angleRad)) + xAdd;
+        layoutParam6.topMargin = (int)(getwidth * (float) Math.sin(angleRad)) + yAdd;
+        imgBtnHealth.setLayoutParams(layoutParam6);
 
         imgViewsettingBg.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -516,12 +391,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                     case MotionEvent.ACTION_UP: {
                         ((ImageButton) v).setAlpha((float) 1.0);
-                    //    Animation anim = new CircularRotateAnimation(homeBoardImage, 500);
-//duration of animation
-                    //    anim.setDuration(1000);
-//start the animation
-                     //   homeBoardImage.startAnimation(anim);
-
                         System.out.println("*******&&&&");
                        // v.animate().cancel();
                         if (sharedPreferences.contains(soundHomeActivity)) {
@@ -531,17 +400,8 @@ public class MainActivity extends AppCompatActivity {
                             editor.putBoolean(soundHomeActivity, getSoundFlag);
                             editor.commit();
                             if (getSoundFlag == true) {
-                                rC.cancel();
                                 btnImgHomeSound.setImageResource(R.mipmap.sound_on);
                             } else {
-                              //  rC.reset();
-                                rC = new RotateAnimation(360, 0,
-                                        Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-                                rC.setDuration(durationMillis);
-                                rC.setInterpolator(new LinearInterpolator());
-                                rC.setRepeatMode(Animation.RESTART);
-                                rC.setRepeatCount(Animation.INFINITE);
-                                optionsRelativeLayout.startAnimation(rC);
                                 btnImgHomeSound.setImageResource(R.mipmap.sound_off);
                                 stopPlayerSound();
                             }
@@ -552,10 +412,143 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        imgBtnBasicGk.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                System.out.println("Basic Gk clicked.");
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        ((ImageButton) v).setAlpha((float) 0.5);
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP: {
+                        ((ImageButton) v).setAlpha((float) 1.0);
+                        resetOptions();
+                        v.setBackgroundResource(R.mipmap.basic_gk_selected);
+                        imgBtnBasicGk.setAlpha(1.0f);
+                    }
+                }
+                return true;
+            }
+        });
+
+        imgBtnEnglish.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                System.out.println("Basic Gk clicked.");
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        ((ImageButton) v).setAlpha((float) 0.5);
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP: {
+                        ((ImageButton) v).setAlpha((float) 1.0);
+                        resetOptions();
+                        v.setBackgroundResource(R.mipmap.english_selected);
+                        imgBtnEnglish.setAlpha(1.0f);
+                    }
+                }
+                return true;
+            }
+        });
+
+
+        imgBtnHealth.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                System.out.println("Basic Gk clicked.");
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        ((ImageButton) v).setAlpha((float) 0.5);
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP: {
+                        ((ImageButton) v).setAlpha((float) 1.0);
+                        resetOptions();
+                        v.setBackgroundResource(R.mipmap.health_selected);
+                        imgBtnHealth.setAlpha(1.0f);
+                    }
+                }
+                return true;
+            }
+        });
+
+        imgBtnWild.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                System.out.println("Basic Gk clicked.");
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        ((ImageButton) v).setAlpha((float) 0.5);
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP: {
+                        ((ImageButton) v).setAlpha((float) 1.0);
+                        resetOptions();
+                        v.setBackgroundResource(R.mipmap.wild_aquatic_selected);
+                        imgBtnWild.setAlpha(1.0f);
+                    }
+                }
+                return true;
+            }
+        });
+
+        imgBtnSpace.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                System.out.println("Basic Gk clicked.");
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        ((ImageButton) v).setAlpha((float) 0.5);
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP: {
+                        ((ImageButton) v).setAlpha((float) 1.0);
+                        resetOptions();
+                        v.setBackgroundResource(R.mipmap.space_selected);
+                        imgBtnSpace.setAlpha(1.0f);
+                    }
+                }
+                return true;
+            }
+        });
+
+        imgBtnWorldGk.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                System.out.println("Basic Gk clicked.");
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        ((ImageButton) v).setAlpha((float) 0.5);
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP: {
+                        ((ImageButton) v).setAlpha((float) 1.0);
+                        resetOptions();
+                        v.setBackgroundResource(R.mipmap.world_gk_selected);
+                        imgBtnWorldGk.setAlpha(1.0f);
+                    }
+                }
+                return true;
+            }
+        });
     }
 
+    void resetOptions() {
+        imgBtnWorldGk.setBackgroundResource(R.mipmap.world_gk);
+        imgBtnEnglish.setBackgroundResource(R.mipmap.english);
+        imgBtnHealth.setBackgroundResource(R.mipmap.health);
+        imgBtnSpace.setBackgroundResource(R.mipmap.space);
+        imgBtnWild.setBackgroundResource(R.mipmap.wild_aquatic);
+        imgBtnBasicGk.setBackgroundResource(R.mipmap.basic_gk);
 
-
+        imgBtnBasicGk.setAlpha(0.8f);
+        imgBtnEnglish.setAlpha(0.8f);
+        imgBtnHealth.setAlpha(0.8f);
+        imgBtnSpace.setAlpha(0.8f);
+        imgBtnWild.setAlpha(0.8f);
+        imgBtnWorldGk.setAlpha(0.8f);
+    }
 
     protected void onRestart() {
         super.onRestart();
@@ -595,7 +588,7 @@ public class MainActivity extends AppCompatActivity {
                     Intent shareIntent = new Intent(Intent.ACTION_SEND);
                     shareIntent.setType("text/plain");
                     shareIntent.putExtra(Intent.EXTRA_SUBJECT, Constant.APP_PNAME);
-                    String shareMessage = "Best app for kids to learn clock.\n\n";
+                    String shareMessage = "Best app for kids to learn GK.\n\n";
                     shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + Constant.BUNDLE_ID;
                     shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
                     startActivity(Intent.createChooser(shareIntent, "choose one"));

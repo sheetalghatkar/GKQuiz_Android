@@ -46,13 +46,43 @@
         android:id="@+id/cont"
         android:layout_width="360dp"
         android:layout_height="360dp"
-        android:background="@color/blue_color"
+        android:background="@null"
         android:gravity="center"
+        android:layout_marginRight="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/homeBoardImage">
 
+        <ImageButton
+            android:id="@+id/imgBtnBasicGk"
+            android:layout_width="100dp"
+            android:layout_height="100dp" />
+
+        <ImageButton
+            android:id="@+id/imgBtnEnglish"
+            android:layout_width="100dp"
+            android:layout_height="100dp" />
+
+        <ImageButton
+            android:id="@+id/imgBtnWild"
+            android:layout_width="100dp"
+            android:layout_height="100dp" />
+
+        <ImageButton
+            android:id="@+id/imgBtnSpace"
+            android:layout_width="100dp"
+            android:layout_height="100dp" />
+
+        <ImageButton
+            android:id="@+id/imgBtnWorldGk"
+            android:layout_width="100dp"
+            android:layout_height="100dp" />
+
+        <ImageButton
+            android:id="@+id/imgBtnHealth"
+            android:layout_width="100dp"
+            android:layout_height="100dp" />
 
     </RelativeLayout>
 
@@ -263,7 +293,7 @@
         android:layout_width="250dp"
         android:layout_height="375dp"
         android:scaleType="fitXY"
-        android:src="@mipmap/setting_pink"
+        android:src="@mipmap/setting_blue"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

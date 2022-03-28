@@ -16,4 +16,5 @@
     <color name="text_shadow">#000000</color>
     <color name="text_shadow_white">#FFFFFF</color>
     <color name="light_font">#FBFBFB</color>
+    <color name="blue_other_apps">#1f90cc</color>
 </resources>
