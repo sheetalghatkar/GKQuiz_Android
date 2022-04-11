@@ -55,6 +55,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -81,7 +83,10 @@ public class MainActivity extends AppCompatActivity {
     ImageButton imgBtnSpace;
     ImageButton imgBtnWorldGk;
     ImageButton imgBtnHealth;
+    public static ArrayList<QuestionItem>  questionItemDataArray;
+    public static ArrayList<QuestionItem>  questionItemFinalArray;
 
+    //    CircleLayoutManager circleLayoutManager;// = new CircleLayoutManager(context);
     //    private AdView mAdView;
 //    AdRequest adRequest;
 //    public static ArrayList<GuessTimeItem>  guessTimeDataArray;
@@ -103,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
 
         //  binding = ActivityMainBinding.inflate(getLayoutInflater());
         //  setContentView(binding.getRoot());
-        Log.v("xxx", "Inside getSoundFlag loop----");
+      //  Log.v("xxx", "Inside getSoundFlag loop----");
 
         //  imgViewHomeGif = findViewById(R.id.imgViewHomeGif);
         btnImgHomeSound = findViewById(R.id.btnSoundHomeScreen);
@@ -198,7 +203,8 @@ public class MainActivity extends AppCompatActivity {
             btnImgHomeSound.setImageResource(R.mipmap.sound_on);
             playSound();
         }
-        // guessTimeDataArray = parseGuessTimeArray("guess_time");
+
+
 
 
 
@@ -317,6 +323,12 @@ public class MainActivity extends AppCompatActivity {
         ViewCompat.setTranslationZ(fab_txt_otherApps, 15);
         ViewCompat.setTranslationZ(fab_txt_privacyPolicy, 15);
 
+        //Parse json files to array
+
+        questionItemDataArray = parseQuestionArray("basic_gk");
+
+
+
 
         fab_setting.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -426,6 +438,7 @@ public class MainActivity extends AppCompatActivity {
                         resetOptions();
                         v.setBackgroundResource(R.mipmap.basic_gk_selected);
                         imgBtnBasicGk.setAlpha(1.0f);
+                        basicGkClicked();
                     }
                 }
                 return true;
@@ -533,7 +546,93 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    public ArrayList<QuestionItem> createRandomTimeArray() {
+        System.out.println("Inside createarray---+"+questionItemDataArray);
+        int maxCount = questionItemDataArray.size();
+        questionItemFinalArray =  new ArrayList<QuestionItem>();
+        ArrayList<Integer> selectedArrayOfIndex = new ArrayList<Integer>();
+        for (int i = 0; i < maxCount; i++) {
 
+            Boolean isQuestionSelected = false;
+            do {
+                Random rand = new Random();
+                int random = rand.nextInt(maxCount);
+                if (!(selectedArrayOfIndex.contains(random))) {
+                    selectedArrayOfIndex.add(random);
+                    questionItemFinalArray.add(questionItemDataArray.get(random));
+                    isQuestionSelected = true;
+                }
+
+            } while (!isQuestionSelected);
+        }
+        return questionItemFinalArray;
+    }
+
+    public ArrayList parseQuestionArray(String fileName) {
+
+        String strJson = null;
+        ArrayList<QuestionItem> questionItemDataArray;
+        questionItemDataArray = new ArrayList<>();
+
+        try {
+            strJson = readFile(fileName+".json");
+          //  System.out.println("parseGuessTimeArray strJson****"+strJson);
+
+            String data = "";
+            try {
+
+                // Create the root JSONObject from the JSON string.
+                JSONObject jsonRootObject = new JSONObject(strJson);
+                //Get the instance of JSONArray that contains JSONObjects
+                JSONArray jsonArray = jsonRootObject.optJSONArray(fileName);
+                  System.out.println("jsonArray#####"+jsonArray);
+
+                //Iterate the jsonArray and print the info of JSONObjects
+                for(int i=0; i < jsonArray.length(); i++){
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    try {
+                        //  System.out.println("jsonObject#####"+jsonObject);
+                        JSONArray jOptions = jsonObject.getJSONArray("option");
+                        ArrayList<QuestionOptionModel> listOptions = new ArrayList<QuestionOptionModel>();
+
+                        for (int iCnt=0; iCnt<jOptions.length(); iCnt++) {
+                            if (jOptions.length() != 0) {
+                                JSONObject jsonOptionObject = jOptions.getJSONObject(iCnt);
+                                QuestionOptionModel questionOptionModel = new QuestionOptionModel(jsonOptionObject.getString("optionStr"),jsonOptionObject.getInt("optionStatus"));
+                                listOptions.add(questionOptionModel);
+                            }
+                        }
+                        QuestionItem questionItem = new QuestionItem(jsonObject.getString("question"), listOptions,jsonObject.getInt("answer"));
+                        //  System.out.println("guessTimeItem!!!!!"+guessTimeItem);
+                        //  System.out.println("yyyyyyy"+quizItem.arrayCaption);
+                        questionItemDataArray.add(questionItem);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                   System.out.println("----guessTimeDataArray---"+questionItemDataArray);
+                return questionItemDataArray;
+            } catch (JSONException e) {e.printStackTrace();}
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return questionItemDataArray;
+    }
+
+    public String readFile(String fileName) throws IOException
+    {
+        System.out.println("----inside readFile---");
+        BufferedReader reader = null;
+        reader = new BufferedReader(new InputStreamReader(getAssets().open(fileName), "UTF-8"));
+
+        String content = "";
+        String line;
+        while ((line = reader.readLine()) != null)
+        {
+            content = content + line;
+        }
+        return content;
+    }
     void resetOptions() {
         imgBtnWorldGk.setBackgroundResource(R.mipmap.world_gk);
         imgBtnEnglish.setBackgroundResource(R.mipmap.english);
@@ -628,12 +727,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-//    public void guessTimeClicked(View v) {
-//        System.out.println("@@@@@@@@@@@@@@@guessTimeClicked clicked@@@@@@@@@@@");
-//        guessTimeFinalArray = createRandomTimeArray();
-//        Intent intent = new Intent(this, GuessTimeActivity.class);
-//        startActivity(intent);
-//    }
+    public void basicGkClicked() {
+        questionItemFinalArray = createRandomTimeArray();
+        System.out.println("@@@@@@@@@@@@@@@basicGkClicked clicked@@@@@@@@@@@"+questionItemFinalArray);
+
+        Intent intent = new Intent(this, QuizActivity.class);
+
+        Constant.arrayXyz = questionItemFinalArray;
+       // intent.putExtra("QuizArray",questionItemFinalArray);
+        startActivity(intent);
+    }
 
 
     public void otherAppsTabClicked(View v) {
