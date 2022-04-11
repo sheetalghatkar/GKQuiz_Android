@@ -1,0 +1,7 @@
+{ "basic_gk" :
+[
+  {"question":"What is the standard taste of the water?", "option":[{"optionStr":"Sweet","optionStatus":-1},{"optionStr":"Sour","optionStatus":-1},{"optionStr":"Tasteless","optionStatus": -1},{"optionStr":"Bitter","optionStatus":-1}], "answer":2},
+  {"question":"The study of encryption is called _____?", "option":[{"optionStr":"Decryption", "optionStatus":-1},{"optionStr":"Cryptography","optionStatus":-1},{"optionStr":"Firewall", "optionStatus":-1},{"optionStr":"All the above", "optionStatus":-1}], "answer":1},
+  {"question":"Which gas do plants absorb?", "option":[{"optionStr":"Oxygen","optionStatus": -1},{"optionStr":"Helium","optionStatus": -1},{"optionStr":"Carbon dioxide", "optionStatus":-1},{"optionStr":"Neon","optionStatus": -1}], "answer":2}
+]
+}
