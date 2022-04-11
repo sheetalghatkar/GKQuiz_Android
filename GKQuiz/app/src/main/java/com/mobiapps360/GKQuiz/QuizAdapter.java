@@ -53,6 +53,56 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
         holder.btnOption2.setText(listQuestionOptions.get(1).getOptionStr());
         holder.btnOption3.setText(listQuestionOptions.get(2).getOptionStr());
         holder.btnOption4.setText(listQuestionOptions.get(3).getOptionStr());
+        if (questionItemModel.getAnswer() == 0) {
+            holder.imgBtnStatus1.setImageResource(R.mipmap.right_sign);
+        } else  if (questionItemModel.getAnswer() == 1) {
+            holder.imgBtnStatus2.setImageResource(R.mipmap.right_sign);
+        } else  if (questionItemModel.getAnswer() == 2) {
+            holder.imgBtnStatus3.setImageResource(R.mipmap.right_sign);
+        } else {
+            holder.imgBtnStatus4.setImageResource(R.mipmap.right_sign);
+        }
+
+        if ((listQuestionOptions.get(0).getOptionStatus()) == -1) {
+            holder.imgBtnStatus1.setVisibility(View.INVISIBLE);
+        } else if ((listQuestionOptions.get(0).getOptionStatus()) == 0) {
+            holder.imgBtnStatus1.setVisibility(View.VISIBLE);
+            holder.imgBtnStatus1.setImageResource(R.mipmap.wrong_sign);
+        } else {
+            holder.imgBtnStatus1.setVisibility(View.VISIBLE);
+            holder.imgBtnStatus1.setImageResource(R.mipmap.right_sign);
+        }
+
+        if ((listQuestionOptions.get(1).getOptionStatus()) == -1) {
+            holder.imgBtnStatus2.setVisibility(View.INVISIBLE);
+        } else if ((listQuestionOptions.get(1).getOptionStatus()) == 0) {
+            holder.imgBtnStatus2.setVisibility(View.VISIBLE);
+            holder.imgBtnStatus2.setImageResource(R.mipmap.wrong_sign);
+        } else {
+            holder.imgBtnStatus2.setVisibility(View.VISIBLE);
+            holder.imgBtnStatus2.setImageResource(R.mipmap.right_sign);
+        }
+
+        if ((listQuestionOptions.get(2).getOptionStatus()) == -1) {
+            holder.imgBtnStatus3.setVisibility(View.INVISIBLE);
+        } else if ((listQuestionOptions.get(2).getOptionStatus()) == 0) {
+            holder.imgBtnStatus3.setVisibility(View.VISIBLE);
+            holder.imgBtnStatus3.setImageResource(R.mipmap.wrong_sign);
+        } else {
+            holder.imgBtnStatus3.setVisibility(View.VISIBLE);
+            holder.imgBtnStatus3.setImageResource(R.mipmap.right_sign);
+        }
+
+        if ((listQuestionOptions.get(3).getOptionStatus()) == -1) {
+            holder.imgBtnStatus4.setVisibility(View.INVISIBLE);
+        } else if ((listQuestionOptions.get(3).getOptionStatus()) == 0) {
+            holder.imgBtnStatus4.setVisibility(View.VISIBLE);
+            holder.imgBtnStatus4.setImageResource(R.mipmap.wrong_sign);
+        } else {
+            holder.imgBtnStatus4.setVisibility(View.VISIBLE);
+            holder.imgBtnStatus4.setImageResource(R.mipmap.right_sign);
+        }
+
     }
 
     @Override
@@ -86,6 +136,8 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
             this.imgBtnStatus2 = itemView.findViewById(R.id.imgBtnStatus2);
             this.imgBtnStatus3 = itemView.findViewById(R.id.imgBtnStatus3);
             this.imgBtnStatus4 = itemView.findViewById(R.id.imgBtnStatus4);
+
+
             //------------------------------------------
 
 
@@ -103,7 +155,6 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                             ((Button) v).setAlpha((float) 1.0);
                             imgBtnStatus1.setAlpha((float) 1.0);
                             imgBtnStatus1.setVisibility(View.VISIBLE);
-                           // btnImgHomeSound.setImageResource(R.mipmap.sound_off);
                         }
                     }
                     return true;

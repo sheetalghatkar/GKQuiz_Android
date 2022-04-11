@@ -4,6 +4,14 @@ public class QuestionOptionModel {
      String optionStr;
      int optionStatus;
 
+    public int getOptionStatus() {
+        return optionStatus;
+    }
+
+    public void setOptionStatus(int optionStatus) {
+        this.optionStatus = optionStatus;
+    }
+
     public String getOptionStr() {
         return optionStr;
     }
