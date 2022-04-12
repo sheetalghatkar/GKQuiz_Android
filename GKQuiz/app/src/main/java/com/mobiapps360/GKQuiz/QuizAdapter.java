@@ -23,6 +23,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
     QuestionItem questionItemModel;
     ArrayList<QuestionOptionModel> listQuestionOptions;
     int cardIndex = 0;
+
     public QuizAdapter(Context context) {
         this.context = context;
     }
@@ -56,9 +57,9 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
         holder.btnOption4.setText(listQuestionOptions.get(3).getOptionStr());
         if (questionItemModel.getAnswer() == 0) {
             holder.imgBtnStatus1.setImageResource(R.mipmap.right_sign);
-        } else  if (questionItemModel.getAnswer() == 1) {
+        } else if (questionItemModel.getAnswer() == 1) {
             holder.imgBtnStatus2.setImageResource(R.mipmap.right_sign);
-        } else  if (questionItemModel.getAnswer() == 2) {
+        } else if (questionItemModel.getAnswer() == 2) {
             holder.imgBtnStatus3.setImageResource(R.mipmap.right_sign);
         } else {
             holder.imgBtnStatus4.setImageResource(R.mipmap.right_sign);
@@ -103,7 +104,6 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
             holder.imgBtnStatus4.setVisibility(View.VISIBLE);
             holder.imgBtnStatus4.setImageResource(R.mipmap.right_sign);
         }
-
     }
 
     @Override
@@ -155,17 +155,19 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                             imgBtnStatus1.setAlpha((float) 1.0);
                             imgBtnStatus1.setVisibility(View.VISIBLE);
                             int setOptionStatus = 0;
-                             if(questionItemModel.getAnswer() == 0){
-                                 setOptionStatus = 1;
-                             }
-                            System.out.println("--poss-"+getBindingAdapterPosition());
-
-                             QuestionOptionModel questionOptionModel1 = new QuestionOptionModel(listQuestionOptions.get(0).getOptionStr(),setOptionStatus);
-                             listQuestionOptions.add(0, questionOptionModel1);
-                             questionItemModel.setArrayOption(listQuestionOptions);
-                             Constant.arrayXyz.add(getBindingAdapterPosition(),questionItemModel);
-//                            System.out.println("---"+cardIndex);
-//                            System.out.println("Inside loop"+Constant.arrayXyz.get(0).getArrayOption().get(0).getOptionStatus());
+                            if (questionItemModel.getAnswer() == 0) {
+                                setOptionStatus = 1;
+                            }
+                            System.out.println("--poss-" + getBindingAdapterPosition());
+                            QuestionItem questionItemModelTemp;
+                            questionItemModelTemp = listQuestionItem.get(getBindingAdapterPosition());
+                            ArrayList<QuestionOptionModel> listQuestionOptionsTemp;
+                            listQuestionOptionsTemp = questionItemModelTemp.getArrayOption();
+                            QuestionOptionModel questionOptionModel1 = new QuestionOptionModel(listQuestionOptionsTemp.get(0).getOptionStr(), setOptionStatus);
+                            listQuestionOptionsTemp.set(0, questionOptionModel1);
+                            questionItemModelTemp.setArrayOption(listQuestionOptionsTemp);
+                            listQuestionItem.set(getBindingAdapterPosition(), questionItemModelTemp);
+                            Constant.arrayXyz.set(getBindingAdapterPosition(), questionItemModelTemp);
                         }
                     }
                     return true;
@@ -186,6 +188,21 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                             ((Button) v).setAlpha((float) 1.0);
                             imgBtnStatus2.setAlpha((float) 1.0);
                             imgBtnStatus2.setVisibility(View.VISIBLE);
+                            int setOptionStatus = 0;
+                            if (questionItemModel.getAnswer() == 1) {
+                                setOptionStatus = 1;
+                            }
+//                            System.out.println("--poss-" + getBindingAdapterPosition());
+
+                            QuestionItem questionItemModelTemp;
+                            questionItemModelTemp = listQuestionItem.get(getBindingAdapterPosition());
+                            ArrayList<QuestionOptionModel> listQuestionOptionsTemp;
+                            listQuestionOptionsTemp = questionItemModelTemp.getArrayOption();
+                            QuestionOptionModel questionOptionModel1 = new QuestionOptionModel(listQuestionOptionsTemp.get(1).getOptionStr(), setOptionStatus);
+                            listQuestionOptionsTemp.set(1, questionOptionModel1);
+                            questionItemModelTemp.setArrayOption(listQuestionOptionsTemp);
+                            listQuestionItem.set(getBindingAdapterPosition(), questionItemModelTemp);
+                            Constant.arrayXyz.set(getBindingAdapterPosition(), questionItemModelTemp);
                         }
                     }
                     return true;
@@ -206,6 +223,19 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                             ((Button) v).setAlpha((float) 1.0);
                             imgBtnStatus3.setAlpha((float) 1.0);
                             imgBtnStatus3.setVisibility(View.VISIBLE);
+                            int setOptionStatus = 0;
+                            if (questionItemModel.getAnswer() == 2) {
+                                setOptionStatus = 1;
+                            }
+                            QuestionItem questionItemModelTemp;
+                            questionItemModelTemp = listQuestionItem.get(getBindingAdapterPosition());
+                            ArrayList<QuestionOptionModel> listQuestionOptionsTemp;
+                            listQuestionOptionsTemp = questionItemModelTemp.getArrayOption();
+                            QuestionOptionModel questionOptionModel1 = new QuestionOptionModel(listQuestionOptionsTemp.get(2).getOptionStr(), setOptionStatus);
+                            listQuestionOptionsTemp.set(2, questionOptionModel1);
+                            questionItemModelTemp.setArrayOption(listQuestionOptionsTemp);
+                            listQuestionItem.set(getBindingAdapterPosition(), questionItemModelTemp);
+                            Constant.arrayXyz.set(getBindingAdapterPosition(), questionItemModelTemp);
                         }
                     }
                     return true;
@@ -226,13 +256,29 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                             ((Button) v).setAlpha((float) 1.0);
                             imgBtnStatus4.setAlpha((float) 1.0);
                             imgBtnStatus4.setVisibility(View.VISIBLE);
+                            int setOptionStatus = 0;
+                            if (questionItemModel.getAnswer() == 3) {
+                                setOptionStatus = 1;
+                            }
+                            QuestionItem questionItemModelTemp;
+                            questionItemModelTemp = listQuestionItem.get(getBindingAdapterPosition());
+
+                            ArrayList<QuestionOptionModel> listQuestionOptionsTemp;
+                            listQuestionOptionsTemp = questionItemModelTemp.getArrayOption();
+
+                            QuestionOptionModel questionOptionModel1 = new QuestionOptionModel(listQuestionOptionsTemp.get(3).getOptionStr(), setOptionStatus);
+                            listQuestionOptionsTemp.set(3, questionOptionModel1);
+
+                            questionItemModelTemp.setArrayOption(listQuestionOptionsTemp);
+                            listQuestionItem.set(getBindingAdapterPosition(), questionItemModelTemp);
+                            Constant.arrayXyz.set(getBindingAdapterPosition(), questionItemModelTemp);
                         }
                     }
                     return true;
                 }
             });
 
-            imgBtnStatus1.setOnTouchListener(new View.OnTouchListener() {
+          /*  imgBtnStatus1.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
                     System.out.println("Basic Gk clicked.");
@@ -246,8 +292,18 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                             ((ImageButton) v).setAlpha((float) 1.0);
                             btnOption1.setAlpha((float) 1.0);
                             imgBtnStatus1.setVisibility(View.VISIBLE);
-                            // btnImgHomeSound.setImageResource(R.mipmap.sound_off);
-
+                            int setOptionStatus = 0;
+                            if (questionItemModel.getAnswer() == 0) {
+                                setOptionStatus = 1;
+                            }
+                            QuestionItem questionItemModelTemp;
+                            questionItemModelTemp = listQuestionItem.get(getBindingAdapterPosition());
+                            ArrayList<QuestionOptionModel> listQuestionOptionsTemp ;
+                            listQuestionOptionsTemp = questionItemModelTemp.getArrayOption();
+                            QuestionOptionModel questionOptionModel1 = new QuestionOptionModel(listQuestionOptionsTemp.get(0).getOptionStr(), setOptionStatus);
+                            listQuestionOptionsTemp.set(0, questionOptionModel1);
+                            questionItemModelTemp.setArrayOption(listQuestionOptionsTemp);
+                            listQuestionItem.set(getBindingAdapterPosition(), questionItemModelTemp);
                         }
                     }
                     return true;
@@ -268,6 +324,18 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                             ((ImageButton) v).setAlpha((float) 1.0);
                             btnOption2.setAlpha((float) 1.0);
                             imgBtnStatus2.setVisibility(View.VISIBLE);
+                            int setOptionStatus = 0;
+                            if (questionItemModel.getAnswer() == 1) {
+                                setOptionStatus = 1;
+                            }
+                            QuestionItem questionItemModelTemp;
+                            questionItemModelTemp = listQuestionItem.get(getBindingAdapterPosition());
+                            ArrayList<QuestionOptionModel> listQuestionOptionsTemp ;
+                            listQuestionOptionsTemp = questionItemModelTemp.getArrayOption();
+                            QuestionOptionModel questionOptionModel1 = new QuestionOptionModel(listQuestionOptionsTemp.get(1).getOptionStr(), setOptionStatus);
+                            listQuestionOptionsTemp.set(1, questionOptionModel1);
+                            questionItemModelTemp.setArrayOption(listQuestionOptionsTemp);
+                            listQuestionItem.set(getBindingAdapterPosition(), questionItemModelTemp);
                         }
                     }
                     return true;
@@ -288,6 +356,18 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                             ((ImageButton) v).setAlpha((float) 1.0);
                             btnOption3.setAlpha((float) 1.0);
                             imgBtnStatus3.setVisibility(View.VISIBLE);
+                            int setOptionStatus = 0;
+                            if (questionItemModel.getAnswer() == 2) {
+                                setOptionStatus = 1;
+                            }
+                            QuestionItem questionItemModelTemp;
+                            questionItemModelTemp = listQuestionItem.get(getBindingAdapterPosition());
+                            ArrayList<QuestionOptionModel> listQuestionOptionsTemp ;
+                            listQuestionOptionsTemp = questionItemModelTemp.getArrayOption();
+                            QuestionOptionModel questionOptionModel1 = new QuestionOptionModel(listQuestionOptionsTemp.get(2).getOptionStr(), setOptionStatus);
+                            listQuestionOptionsTemp.set(2, questionOptionModel1);
+                            questionItemModelTemp.setArrayOption(listQuestionOptionsTemp);
+                            listQuestionItem.set(getBindingAdapterPosition(), questionItemModelTemp);
                         }
                     }
                     return true;
@@ -308,11 +388,26 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                             ((ImageButton) v).setAlpha((float) 1.0);
                             btnOption4.setAlpha((float) 1.0);
                             imgBtnStatus4.setVisibility(View.VISIBLE);
+                            int setOptionStatus = 0;
+                            if (questionItemModel.getAnswer() == 3) {
+                                setOptionStatus = 1;
+                            }
+                            QuestionItem questionItemModelTemp;
+                            questionItemModelTemp = listQuestionItem.get(getBindingAdapterPosition());
+
+                            ArrayList<QuestionOptionModel> listQuestionOptionsTemp ;
+                            listQuestionOptionsTemp = questionItemModelTemp.getArrayOption();
+
+                            QuestionOptionModel questionOptionModel1 = new QuestionOptionModel(listQuestionOptionsTemp.get(3).getOptionStr(), setOptionStatus);
+                            listQuestionOptionsTemp.set(3, questionOptionModel1);
+
+                            questionItemModelTemp.setArrayOption(listQuestionOptionsTemp);
+                            listQuestionItem.set(getBindingAdapterPosition(), questionItemModelTemp);
                         }
                     }
                     return true;
                 }
-            });
+            });*/
         }
     }
 }
