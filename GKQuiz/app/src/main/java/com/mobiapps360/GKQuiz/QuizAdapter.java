@@ -20,7 +20,9 @@ import java.util.ArrayList;
 public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
     ArrayList<QuestionItem> listQuestionItem;
     private Context context;
-
+    QuestionItem questionItemModel;
+    ArrayList<QuestionOptionModel> listQuestionOptions;
+    int cardIndex = 0;
     public QuizAdapter(Context context) {
         this.context = context;
     }
@@ -45,10 +47,9 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull QuizAdapter.ViewHolder holder, int position) {
         holder.setIsRecyclable(false);
-        final QuestionItem questionItemModel = listQuestionItem.get(position);
+        questionItemModel = listQuestionItem.get(position);
         holder.txtViewQuestion.setText(questionItemModel.getQuestion());
-
-        ArrayList<QuestionOptionModel> listQuestionOptions = questionItemModel.getArrayOption();
+        listQuestionOptions = questionItemModel.getArrayOption();
         holder.btnOption1.setText(listQuestionOptions.get(0).getOptionStr());
         holder.btnOption2.setText(listQuestionOptions.get(1).getOptionStr());
         holder.btnOption3.setText(listQuestionOptions.get(2).getOptionStr());
@@ -137,9 +138,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
             this.imgBtnStatus3 = itemView.findViewById(R.id.imgBtnStatus3);
             this.imgBtnStatus4 = itemView.findViewById(R.id.imgBtnStatus4);
 
-
             //------------------------------------------
-
 
             btnOption1.setOnTouchListener(new View.OnTouchListener() {
                 @Override
@@ -155,6 +154,18 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                             ((Button) v).setAlpha((float) 1.0);
                             imgBtnStatus1.setAlpha((float) 1.0);
                             imgBtnStatus1.setVisibility(View.VISIBLE);
+                            int setOptionStatus = 0;
+                             if(questionItemModel.getAnswer() == 0){
+                                 setOptionStatus = 1;
+                             }
+                            System.out.println("--poss-"+getBindingAdapterPosition());
+
+                             QuestionOptionModel questionOptionModel1 = new QuestionOptionModel(listQuestionOptions.get(0).getOptionStr(),setOptionStatus);
+                             listQuestionOptions.add(0, questionOptionModel1);
+                             questionItemModel.setArrayOption(listQuestionOptions);
+                             Constant.arrayXyz.add(getBindingAdapterPosition(),questionItemModel);
+//                            System.out.println("---"+cardIndex);
+//                            System.out.println("Inside loop"+Constant.arrayXyz.get(0).getArrayOption().get(0).getOptionStatus());
                         }
                     }
                     return true;
@@ -236,6 +247,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                             btnOption1.setAlpha((float) 1.0);
                             imgBtnStatus1.setVisibility(View.VISIBLE);
                             // btnImgHomeSound.setImageResource(R.mipmap.sound_off);
+
                         }
                     }
                     return true;
