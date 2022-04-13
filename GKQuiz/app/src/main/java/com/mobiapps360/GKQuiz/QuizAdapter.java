@@ -1,6 +1,8 @@
 package com.mobiapps360.GKQuiz;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -23,7 +25,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
     QuestionItem questionItemModel;
     ArrayList<QuestionOptionModel> listQuestionOptions;
     int cardIndex = 0;
-
+    Handler handler;
     public QuizAdapter(Context context) {
         this.context = context;
     }
@@ -55,54 +57,60 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
         holder.btnOption2.setText(listQuestionOptions.get(1).getOptionStr());
         holder.btnOption3.setText(listQuestionOptions.get(2).getOptionStr());
         holder.btnOption4.setText(listQuestionOptions.get(3).getOptionStr());
+        holder.imgBtnStatus1.setAlpha((float) 1.0);
+        holder.imgBtnStatus2.setAlpha((float) 1.0);
+        holder.imgBtnStatus3.setAlpha((float) 1.0);
+        holder.imgBtnStatus4.setAlpha((float) 1.0);
+        holder.btnOption1.setAlpha((float) 1.0);
+        holder.btnOption2.setAlpha((float) 1.0);
+        holder.btnOption3.setAlpha((float) 1.0);
+        holder.btnOption4.setAlpha((float) 1.0);
+
         if (questionItemModel.getAnswer() == 0) {
             holder.imgBtnStatus1.setImageResource(R.mipmap.right_sign);
+            holder.imgBtnStatus2.setImageResource(R.mipmap.wrong_sign);
+            holder.imgBtnStatus3.setImageResource(R.mipmap.wrong_sign);
+            holder.imgBtnStatus4.setImageResource(R.mipmap.wrong_sign);
+
         } else if (questionItemModel.getAnswer() == 1) {
+            holder.imgBtnStatus1.setImageResource(R.mipmap.wrong_sign);
             holder.imgBtnStatus2.setImageResource(R.mipmap.right_sign);
+            holder.imgBtnStatus3.setImageResource(R.mipmap.wrong_sign);
+            holder.imgBtnStatus4.setImageResource(R.mipmap.wrong_sign);
         } else if (questionItemModel.getAnswer() == 2) {
+            holder.imgBtnStatus1.setImageResource(R.mipmap.wrong_sign);
+            holder.imgBtnStatus2.setImageResource(R.mipmap.wrong_sign);
             holder.imgBtnStatus3.setImageResource(R.mipmap.right_sign);
+            holder.imgBtnStatus4.setImageResource(R.mipmap.wrong_sign);
         } else {
+            holder.imgBtnStatus1.setImageResource(R.mipmap.wrong_sign);
+            holder.imgBtnStatus2.setImageResource(R.mipmap.wrong_sign);
+            holder.imgBtnStatus3.setImageResource(R.mipmap.wrong_sign);
             holder.imgBtnStatus4.setImageResource(R.mipmap.right_sign);
         }
 
         if ((listQuestionOptions.get(0).getOptionStatus()) == -1) {
             holder.imgBtnStatus1.setVisibility(View.INVISIBLE);
-        } else if ((listQuestionOptions.get(0).getOptionStatus()) == 0) {
-            holder.imgBtnStatus1.setVisibility(View.VISIBLE);
-            holder.imgBtnStatus1.setImageResource(R.mipmap.wrong_sign);
         } else {
             holder.imgBtnStatus1.setVisibility(View.VISIBLE);
-            holder.imgBtnStatus1.setImageResource(R.mipmap.right_sign);
         }
 
         if ((listQuestionOptions.get(1).getOptionStatus()) == -1) {
             holder.imgBtnStatus2.setVisibility(View.INVISIBLE);
-        } else if ((listQuestionOptions.get(1).getOptionStatus()) == 0) {
-            holder.imgBtnStatus2.setVisibility(View.VISIBLE);
-            holder.imgBtnStatus2.setImageResource(R.mipmap.wrong_sign);
         } else {
             holder.imgBtnStatus2.setVisibility(View.VISIBLE);
-            holder.imgBtnStatus2.setImageResource(R.mipmap.right_sign);
         }
 
         if ((listQuestionOptions.get(2).getOptionStatus()) == -1) {
             holder.imgBtnStatus3.setVisibility(View.INVISIBLE);
-        } else if ((listQuestionOptions.get(2).getOptionStatus()) == 0) {
-            holder.imgBtnStatus3.setVisibility(View.VISIBLE);
-            holder.imgBtnStatus3.setImageResource(R.mipmap.wrong_sign);
         } else {
             holder.imgBtnStatus3.setVisibility(View.VISIBLE);
-            holder.imgBtnStatus3.setImageResource(R.mipmap.right_sign);
         }
 
         if ((listQuestionOptions.get(3).getOptionStatus()) == -1) {
             holder.imgBtnStatus4.setVisibility(View.INVISIBLE);
-        } else if ((listQuestionOptions.get(3).getOptionStatus()) == 0) {
-            holder.imgBtnStatus4.setVisibility(View.VISIBLE);
-            holder.imgBtnStatus4.setImageResource(R.mipmap.wrong_sign);
         } else {
             holder.imgBtnStatus4.setVisibility(View.VISIBLE);
-            holder.imgBtnStatus4.setImageResource(R.mipmap.right_sign);
         }
     }
 
@@ -144,23 +152,36 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
 //                    System.out.println("Basic Gk clicked.");
+                    imgBtnStatus1.setVisibility(View.VISIBLE);
                     switch (event.getAction()) {
                         case MotionEvent.ACTION_DOWN: {
                             ((Button) v).setAlpha((float) 0.5);
                             imgBtnStatus1.setAlpha((float) 0.5);
+                            handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    try {
+                                        btnOption1.setAlpha((float) 1.0);
+                                        imgBtnStatus1.setAlpha((float) 1.0);
+                                    } catch(Exception e) {
+
+                                    }
+                                }
+                            }, 500);
                             break;
                         }
                         case MotionEvent.ACTION_UP: {
+                            handler.removeCallbacksAndMessages(null);
                             ((Button) v).setAlpha((float) 1.0);
                             imgBtnStatus1.setAlpha((float) 1.0);
-                            imgBtnStatus1.setVisibility(View.VISIBLE);
                             int setOptionStatus = 0;
                             if (questionItemModel.getAnswer() == 0) {
                                 setOptionStatus = 1;
                             }
                             QuestionItem questionItemModelTemp;
                             questionItemModelTemp = listQuestionItem.get(getBindingAdapterPosition());
-                            System.out.println("--1st clicked-" + questionItemModelTemp.getQuestion() +"status"+questionItemModelTemp.getAnswer());
+                            System.out.println("--1st clicked-" + questionItemModelTemp.getQuestion() + "status" + questionItemModelTemp.getAnswer());
                             ArrayList<QuestionOptionModel> listQuestionOptionsTemp;
                             listQuestionOptionsTemp = questionItemModelTemp.getArrayOption();
                             QuestionOptionModel questionOptionModel1 = new QuestionOptionModel(listQuestionOptionsTemp.get(0).getOptionStr(), setOptionStatus);
@@ -179,16 +200,29 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
 //                    System.out.println("Basic Gk clicked.");
+                    imgBtnStatus2.setVisibility(View.VISIBLE);
                     switch (event.getAction()) {
                         case MotionEvent.ACTION_DOWN: {
                             ((Button) v).setAlpha((float) 0.5);
                             imgBtnStatus2.setAlpha((float) 0.5);
+                            handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    try {
+                                        btnOption2.setAlpha((float) 1.0);
+                                        imgBtnStatus2.setAlpha((float) 1.0);
+                                    } catch(Exception e) {
+
+                                    }
+                                }
+                            }, 500);
                             break;
                         }
                         case MotionEvent.ACTION_UP: {
+                            handler.removeCallbacksAndMessages(null);
                             ((Button) v).setAlpha((float) 1.0);
                             imgBtnStatus2.setAlpha((float) 1.0);
-                            imgBtnStatus2.setVisibility(View.VISIBLE);
                             int setOptionStatus = 0;
                             if (questionItemModel.getAnswer() == 1) {
                                 setOptionStatus = 1;
@@ -196,7 +230,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
 
                             QuestionItem questionItemModelTemp;
                             questionItemModelTemp = listQuestionItem.get(getBindingAdapterPosition());
-                             System.out.println("--2nd clicked-" + questionItemModelTemp.getQuestion() +"status"+questionItemModelTemp.getAnswer());
+                            System.out.println("--2nd clicked-" + questionItemModelTemp.getQuestion() + "status" + questionItemModelTemp.getAnswer());
                             ArrayList<QuestionOptionModel> listQuestionOptionsTemp;
                             listQuestionOptionsTemp = questionItemModelTemp.getArrayOption();
                             QuestionOptionModel questionOptionModel1 = new QuestionOptionModel(listQuestionOptionsTemp.get(1).getOptionStr(), setOptionStatus);
@@ -216,23 +250,36 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
 //                    System.out.println("Basic Gk clicked.");
+                    imgBtnStatus3.setVisibility(View.VISIBLE);
                     switch (event.getAction()) {
                         case MotionEvent.ACTION_DOWN: {
                             ((Button) v).setAlpha((float) 0.5);
                             imgBtnStatus3.setAlpha((float) 0.5);
+                            handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    try {
+                                        btnOption3.setAlpha((float) 1.0);
+                                        imgBtnStatus3.setAlpha((float) 1.0);
+                                    } catch(Exception e) {
+
+                                    }
+                                }
+                            }, 500);
                             break;
                         }
                         case MotionEvent.ACTION_UP: {
+                            handler.removeCallbacksAndMessages(null);
                             ((Button) v).setAlpha((float) 1.0);
                             imgBtnStatus3.setAlpha((float) 1.0);
-                            imgBtnStatus3.setVisibility(View.VISIBLE);
                             int setOptionStatus = 0;
                             if (questionItemModel.getAnswer() == 2) {
                                 setOptionStatus = 1;
                             }
                             QuestionItem questionItemModelTemp;
                             questionItemModelTemp = listQuestionItem.get(getBindingAdapterPosition());
-                            System.out.println("--3rd clicked-" + questionItemModelTemp.getQuestion() +"status"+questionItemModelTemp.getAnswer());
+                            System.out.println("--3rd clicked-" + questionItemModelTemp.getQuestion() + "status" + questionItemModelTemp.getAnswer());
                             ArrayList<QuestionOptionModel> listQuestionOptionsTemp;
                             listQuestionOptionsTemp = questionItemModelTemp.getArrayOption();
                             QuestionOptionModel questionOptionModel1 = new QuestionOptionModel(listQuestionOptionsTemp.get(2).getOptionStr(), setOptionStatus);
@@ -251,23 +298,36 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
 //                    System.out.println("Basic Gk clicked.");
+                    imgBtnStatus4.setVisibility(View.VISIBLE);
                     switch (event.getAction()) {
                         case MotionEvent.ACTION_DOWN: {
                             ((Button) v).setAlpha((float) 0.5);
                             imgBtnStatus4.setAlpha((float) 0.5);
+                            handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    try {
+                                        btnOption4.setAlpha((float) 1.0);
+                                        imgBtnStatus4.setAlpha((float) 1.0);
+                                    } catch(Exception e) {
+
+                                    }
+                                }
+                            }, 500);
                             break;
                         }
                         case MotionEvent.ACTION_UP: {
+                            handler.removeCallbacksAndMessages(null);
                             ((Button) v).setAlpha((float) 1.0);
                             imgBtnStatus4.setAlpha((float) 1.0);
-                            imgBtnStatus4.setVisibility(View.VISIBLE);
                             int setOptionStatus = 0;
                             if (questionItemModel.getAnswer() == 3) {
                                 setOptionStatus = 1;
                             }
                             QuestionItem questionItemModelTemp;
                             questionItemModelTemp = listQuestionItem.get(getBindingAdapterPosition());
-                            System.out.println("--4th clicked-" + questionItemModelTemp.getQuestion() +"status"+questionItemModelTemp.getAnswer());
+                            System.out.println("--4th clicked-" + questionItemModelTemp.getQuestion() + "status" + questionItemModelTemp.getAnswer());
 
                             ArrayList<QuestionOptionModel> listQuestionOptionsTemp;
                             listQuestionOptionsTemp = questionItemModelTemp.getArrayOption();
