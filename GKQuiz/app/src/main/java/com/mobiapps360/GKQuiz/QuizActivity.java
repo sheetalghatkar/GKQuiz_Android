@@ -76,7 +76,7 @@ public class QuizActivity extends AppCompatActivity {
     private ImageButton btnQuizBack;
     private ImageView imgViewWallBg;
     ImageView homeBoardImage;
-    QuizAdapter quizAdapter;
+    static QuizAdapter quizAdapter;
     MediaPlayer player;
     ArrayList<QuestionItem> questionItemModelArray;
 
@@ -121,6 +121,7 @@ public class QuizActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(circleLayoutManager);
         recyclerView.setAdapter(quizAdapter);
 
+        recyclerView.setItemAnimator(null);
 
 //        System.out.println("My Width : "+ m_width);
 //        System.out.println("My Height : "+ (int) (1080 / Resources.getSystem().getDisplayMetrics().density));
@@ -242,7 +243,9 @@ public class QuizActivity extends AppCompatActivity {
 
     }
 
-
+    public static void reloadRecycleView(int updatePosition) {
+        //QuizActivity.quizAdapter.notifyDataSetChanged();
+    }
     protected void onRestart() {
         super.onRestart();
         Log.d("lifecycle", "onRestart invoked");

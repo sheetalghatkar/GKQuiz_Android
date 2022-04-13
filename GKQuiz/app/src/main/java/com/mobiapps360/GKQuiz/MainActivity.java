@@ -325,7 +325,6 @@ public class MainActivity extends AppCompatActivity {
 
         //Parse json files to array
 
-        questionItemDataArray = parseQuestionArray("basic_gk");
 
 
 
@@ -728,6 +727,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void basicGkClicked() {
+        questionItemDataArray = parseQuestionArray("basic_gk");
         questionItemFinalArray = createRandomTimeArray();
         System.out.println("@@@@@@@@@@@@@@@basicGkClicked clicked@@@@@@@@@@@"+questionItemFinalArray);
 
