@@ -39,6 +39,7 @@ import android.view.View;
 
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.PagerSnapHelper;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
 
 import android.view.Menu;
@@ -79,7 +80,8 @@ public class QuizActivity extends AppCompatActivity {
     static QuizAdapter quizAdapter;
     MediaPlayer player;
     ArrayList<QuestionItem> questionItemModelArray;
-
+    static QuizRecycleView recyclerView;
+    static com.mobiapps360.GKQuiz.CircleLayoutManager circleLayoutManager;
 
     public static ArrayList<QuestionItem> questionItemDataArray;
 
@@ -111,8 +113,8 @@ public class QuizActivity extends AppCompatActivity {
         quizAdapter = new QuizAdapter(this);
         quizAdapter.setListMenuItem(questionItemModelArray);
 
-        QuizRecycleView recyclerView =(QuizRecycleView)findViewById(R.id.recycler);
-        final com.mobiapps360.GKQuiz.CircleLayoutManager circleLayoutManager = new com.mobiapps360.GKQuiz.CircleLayoutManager(this);
+        recyclerView =(QuizRecycleView)findViewById(R.id.recycler);
+        com.mobiapps360.GKQuiz.CircleLayoutManager circleLayoutManager = new com.mobiapps360.GKQuiz.CircleLayoutManager(this);
         recyclerView.addOnScrollListener(new com.mobiapps360.GKQuiz.CenterScrollListener());
 
 
@@ -244,7 +246,25 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     public static void reloadRecycleView(int updatePosition) {
-        //QuizActivity.quizAdapter.notifyDataSetChanged();
+        System.out.println("updatePosition***"+updatePosition);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    if (!((Constant.arrayXyz.size()- 1) == updatePosition)) {
+                        recyclerView.scrollToPosition(updatePosition + 1);
+                    }
+                  //  recyclerView.getLayoutManager().smoothScrollToPosition(recyclerView, new RecyclerView.State(), updatePosition+1);
+//                    recyclerView.smoothScrollToPosition(updatePosition+1);
+                  //  recyclerView.getLayoutManager().smoothScrollToPosition(recyclerView, new RecyclerView.State(), updatePosition);
+                    recyclerView.scrollToPosition(updatePosition+1);
+
+                } catch(Exception e) {
+
+                }
+            }
+        }, 500);
     }
     protected void onRestart() {
         super.onRestart();

@@ -190,6 +190,9 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                             listQuestionItem.set(getBindingAdapterPosition(), questionItemModelTemp);
                             Constant.arrayXyz.set(getBindingAdapterPosition(), questionItemModelTemp);
                             notifyItemChanged(getBindingAdapterPosition());
+                            if (questionItemModelTemp.getAnswer() == 0) {
+                                QuizActivity.reloadRecycleView(getBindingAdapterPosition());
+                            }
                         }
                     }
                     return true;
@@ -239,7 +242,9 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                             listQuestionItem.set(getBindingAdapterPosition(), questionItemModelTemp);
                             Constant.arrayXyz.set(getBindingAdapterPosition(), questionItemModelTemp);
                             notifyItemChanged(getBindingAdapterPosition());
-                            //QuizActivity.reloadRecycleView(getBindingAdapterPosition());
+                            if (questionItemModelTemp.getAnswer() == 1) {
+                                QuizActivity.reloadRecycleView(getBindingAdapterPosition());
+                            }
                         }
                     }
                     return true;
@@ -288,6 +293,9 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                             listQuestionItem.set(getBindingAdapterPosition(), questionItemModelTemp);
                             Constant.arrayXyz.set(getBindingAdapterPosition(), questionItemModelTemp);
                             notifyItemChanged(getBindingAdapterPosition());
+                            if (questionItemModelTemp.getAnswer() == 2) {
+                                QuizActivity.reloadRecycleView(getBindingAdapterPosition());
+                            }
                         }
                     }
                     return true;
@@ -339,6 +347,9 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                             listQuestionItem.set(getBindingAdapterPosition(), questionItemModelTemp);
                             Constant.arrayXyz.set(getBindingAdapterPosition(), questionItemModelTemp);
                             notifyItemChanged(getBindingAdapterPosition());
+                            if (questionItemModelTemp.getAnswer() == 3) {
+                                QuizActivity.reloadRecycleView(getBindingAdapterPosition());
+                            }
                         }
                     }
                     return true;

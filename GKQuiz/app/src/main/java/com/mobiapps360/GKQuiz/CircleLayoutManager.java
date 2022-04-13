@@ -4,6 +4,8 @@ import android.content.Context;
 import android.graphics.PointF;
 import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.DisplayMetrics;
 import android.util.SparseArray;
 import android.util.SparseBooleanArray;
 import android.view.View;
@@ -249,10 +251,19 @@ public class CircleLayoutManager extends RecyclerView.LayoutManager{
     @Override
     public void smoothScrollToPosition(RecyclerView recyclerView, RecyclerView.State state, int position) {
         LinearSmoothScroller smoothScroller = new LinearSmoothScroller(context) {
+
             @Override
             public PointF computeScrollVectorForPosition(int targetPosition) {
+                System.out.println("####targetPosition####"+targetPosition);
                 return CircleLayoutManager.this.computeScrollVectorForPosition(targetPosition);
             }
+            //This returns the milliseconds it takes to
+            //scroll one pixel.
+//            @Override
+//            protected float calculateSpeedPerPixel
+//            (DisplayMetrics displayMetrics) {
+//                return 1000/displayMetrics.densityDpi;
+//            }
         };
         System.out.println("####inside####"+position);
         smoothScroller.setTargetPosition(position);
