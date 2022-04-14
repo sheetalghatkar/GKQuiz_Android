@@ -258,7 +258,7 @@ public class QuizActivity extends AppCompatActivity {
                   //  recyclerView.getLayoutManager().smoothScrollToPosition(recyclerView, new RecyclerView.State(), updatePosition+1);
 //                    recyclerView.smoothScrollToPosition(updatePosition+1);
                   //  recyclerView.getLayoutManager().smoothScrollToPosition(recyclerView, new RecyclerView.State(), updatePosition);
-                    recyclerView.scrollToPosition(updatePosition+1);
+//                    recyclerView.scrollToPosition(updatePosition+1);
 
                 } catch(Exception e) {
 
