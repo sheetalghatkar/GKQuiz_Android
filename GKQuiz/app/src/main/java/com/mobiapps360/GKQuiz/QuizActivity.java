@@ -76,6 +76,7 @@ public class QuizActivity extends AppCompatActivity {
     private ImageButton btnImgHomeSound;
     private ImageButton btnQuizBack;
     private ImageView imgViewWallBg;
+    TextView txtViewQuizTitle;
     ImageView homeBoardImage;
     static QuizAdapter quizAdapter;
     MediaPlayer player;
@@ -87,7 +88,7 @@ public class QuizActivity extends AppCompatActivity {
 
     public static SharedPreferences sharedPreferences = null;
     public static final String myPreferences = "myPref";
-    public static final String soundHomeActivity = "soundHomeActivityKey";
+    public static final String soundQuizActivity = "soundQuizActivityKey";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,18 +103,18 @@ public class QuizActivity extends AppCompatActivity {
         btnImgHomeSound = findViewById(R.id.btnSoundQuiz);
         imgViewWallBg = findViewById(R.id.quizWallImage);
         btnQuizBack = findViewById(R.id.btnQuizBack);
+        txtViewQuizTitle = findViewById(R.id.txtViewQuizTitle);
+        txtViewQuizTitle.setText(getIntent().getStringExtra("screenTitle"));
+        //  ArrayList<QuestionItem>  questionItemDataList =  (ArrayList<QuestionItem>) getIntent().getSerializableExtra("QuizArray");
+        //System.out.println("Inside QuizActivity****" + getIntent().getStringExtra("screenTitle"));
 
-
-      //  ArrayList<QuestionItem>  questionItemDataList =  (ArrayList<QuestionItem>) getIntent().getSerializableExtra("QuizArray");
-        System.out.println("Inside QuizActivity****"+Constant.arrayXyz);
-
-        questionItemModelArray = Constant.arrayXyz ;   //.toArray(questionItemModelArray);
+        questionItemModelArray = Constant.arrayXyz;   //.toArray(questionItemModelArray);
 
 
         quizAdapter = new QuizAdapter(this);
         quizAdapter.setListMenuItem(questionItemModelArray);
 
-        recyclerView =(QuizRecycleView)findViewById(R.id.recycler);
+        recyclerView = (QuizRecycleView) findViewById(R.id.recycler);
         com.mobiapps360.GKQuiz.CircleLayoutManager circleLayoutManager = new com.mobiapps360.GKQuiz.CircleLayoutManager(this);
         recyclerView.addOnScrollListener(new com.mobiapps360.GKQuiz.CenterScrollListener());
 
@@ -174,22 +175,21 @@ public class QuizActivity extends AppCompatActivity {
             }
         });*/
 
-        System.out.println("Quiz----****" + btnImgHomeSound);
+       // System.out.println("Quiz----****" + btnImgHomeSound);
         sharedPreferences = getSharedPreferences(myPreferences, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        if (sharedPreferences.contains(soundHomeActivity)) {
-            Boolean getSoundFlag = sharedPreferences.getBoolean(soundHomeActivity, false);
+        if (sharedPreferences.contains(soundQuizActivity)) {
+            Boolean getSoundFlag = sharedPreferences.getBoolean(soundQuizActivity, false);
             if (getSoundFlag == true) {
-                playSound();
+               // playSound();
                 btnImgHomeSound.setImageResource(R.mipmap.sound_on);
             } else {
                 btnImgHomeSound.setImageResource(R.mipmap.sound_off);
             }
         } else {
-            editor.putBoolean(soundHomeActivity, true);
+            editor.putBoolean(soundQuizActivity, true);
             editor.commit();
             btnImgHomeSound.setImageResource(R.mipmap.sound_on);
-            playSound();
         }
         // guessTimeDataArray = parseGuessTimeArray("guess_time");
 
@@ -204,13 +204,13 @@ public class QuizActivity extends AppCompatActivity {
                     }
                     case MotionEvent.ACTION_UP: {
                         ((ImageButton) v).setAlpha((float) 1.0);
-                        System.out.println("*******&&&&");
+                       // System.out.println("*******&&&&");
                         // v.animate().cancel();
-                        if (sharedPreferences.contains(soundHomeActivity)) {
-                            Boolean getSoundFlag = sharedPreferences.getBoolean(soundHomeActivity, false);
+                        if (sharedPreferences.contains(soundQuizActivity)) {
+                            Boolean getSoundFlag = sharedPreferences.getBoolean(soundQuizActivity, false);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             getSoundFlag = !getSoundFlag;
-                            editor.putBoolean(soundHomeActivity, getSoundFlag);
+                            editor.putBoolean(soundQuizActivity, getSoundFlag);
                             editor.commit();
                             if (getSoundFlag == true) {
                                 btnImgHomeSound.setImageResource(R.mipmap.sound_on);
@@ -246,39 +246,59 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     public static void reloadRecycleView(int updatePosition) {
-        System.out.println("updatePosition***"+updatePosition);
+        //System.out.println("updatePosition***" + updatePosition);
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 try {
-                    if (!((Constant.arrayXyz.size()- 1) == updatePosition)) {
+                    if (!((Constant.arrayXyz.size() - 1) == updatePosition)) {
                         recyclerView.scrollToPosition(updatePosition + 1);
                     }
-                  //  recyclerView.getLayoutManager().smoothScrollToPosition(recyclerView, new RecyclerView.State(), updatePosition+1);
+                    //  recyclerView.getLayoutManager().smoothScrollToPosition(recyclerView, new RecyclerView.State(), updatePosition+1);
 //                    recyclerView.smoothScrollToPosition(updatePosition+1);
-                  //  recyclerView.getLayoutManager().smoothScrollToPosition(recyclerView, new RecyclerView.State(), updatePosition);
+                    //  recyclerView.getLayoutManager().smoothScrollToPosition(recyclerView, new RecyclerView.State(), updatePosition);
 //                    recyclerView.scrollToPosition(updatePosition+1);
 
-                } catch(Exception e) {
+                } catch (Exception e) {
 
                 }
             }
-        }, 500);
+        }, 1500);
     }
+
+    void playSoundOptionClick(String soundName) {
+        if (MainActivity.sharedPreferences.getBoolean(soundQuizActivity, false)) {
+            int idSoundBg = getApplicationContext().getResources().getIdentifier("com.mobiapps360.GKQuiz:raw/" + soundName, null, null);
+            //   player.setVolume(0.0f, 0.0f);
+        //System.out.println("playSound clicked ---------" + idSoundBg);
+
+        try {
+                player = MediaPlayer.create(getBaseContext(), idSoundBg);
+            } catch (Exception e) {
+                Log.e("Music Exception", "catch button click sound play");
+            }
+
+            player.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+
+                public void onPrepared(MediaPlayer mp) {
+                    player.start();
+                }
+            });
+
+            player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    player.release();
+                }
+            });
+        }
+    }
+
+
     protected void onRestart() {
         super.onRestart();
-        Log.d("lifecycle", "onRestart invoked");
-        if (sharedPreferences.contains(soundHomeActivity)) {
-            Boolean getSoundFlag = sharedPreferences.getBoolean(soundHomeActivity, false);
-            if (getSoundFlag == true) {
-                playSound();
-            } else {
-                stopPlayerSound();
-            }
-        } else {
-            stopPlayerSound();
-        }
     }
 
     public boolean isOnline() {
@@ -319,15 +339,14 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     public void soundHomeBtnClicked(View v) {
-        Log.v("soundHomeBtnClicked", "i m inside homeBtnClicked");
-        if (sharedPreferences.contains(soundHomeActivity)) {
-            Boolean getSoundFlag = sharedPreferences.getBoolean(soundHomeActivity, false);
+       // Log.v("soundHomeBtnClicked", "i m inside homeBtnClicked");
+        if (sharedPreferences.contains(soundQuizActivity)) {
+            Boolean getSoundFlag = sharedPreferences.getBoolean(soundQuizActivity, false);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             getSoundFlag = !getSoundFlag;
-            editor.putBoolean(soundHomeActivity, getSoundFlag);
+            editor.putBoolean(soundQuizActivity, getSoundFlag);
             editor.commit();
             if (getSoundFlag == true) {
-                playSound();
                 btnImgHomeSound.setImageResource(R.mipmap.sound_on);
             } else {
                 btnImgHomeSound.setImageResource(R.mipmap.sound_off);
@@ -336,36 +355,10 @@ public class QuizActivity extends AppCompatActivity {
         }
     }
 
-    public void playSound() {
-        if (MainActivity.sharedPreferences.getBoolean(soundHomeActivity, false)) {
-            if (player != null) {
-                player.stop();
-                //  player.release();
-            }
-            int idSoundBg = getApplicationContext().getResources().getIdentifier("com.mobiapps360.GKQuiz:raw/" + "bgmusic", null, null);
-            player = MediaPlayer.create(getBaseContext(), idSoundBg);
-            player.start();
-        }
-        player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                // System.out.println("@@@@-----------------On completion-----------------@@@@@@");
-                if (MainActivity.sharedPreferences.getBoolean(soundHomeActivity, false)) {
-                    player.start();
-                }
-            }
-
-        });
-    }
-
     @Override
     protected void onStop() {
         super.onStop();
-        if (player != null) {
-            player.stop();
-        }
-        // Log.i("eerrr","onStop########");
+
     }
 
 

@@ -24,7 +24,7 @@
         android:layout_marginTop="12dp"
         android:background="@null"
         android:scaleType="fitCenter"
-        android:src="@mipmap/home_back"
+        android:src="@mipmap/home_back_red"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,17 +46,22 @@
         android:id="@+id/txtViewQuizTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="10dp"
         android:fontFamily="@font/waltograph"
+        android:shadowColor="@color/red_done"
+        android:shadowDx="-2"
+        android:shadowDy="-2"
+        android:shadowRadius="4"
         android:text="Quiz"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="22sp"
+        android:textSize="30sp"
         android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="@+id/btnQuizBack"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnSoundQuiz"
+        app:layout_constraintStart_toEndOf="@+id/btnQuizBack"
         app:layout_constraintTop_toTopOf="@+id/btnQuizBack" />
 
     <com.mobiapps360.GKQuiz.QuizRecycleView

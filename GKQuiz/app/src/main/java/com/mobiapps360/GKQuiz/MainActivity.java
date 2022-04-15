@@ -458,6 +458,7 @@ public class MainActivity extends AppCompatActivity {
                         resetOptions();
                         v.setBackgroundResource(R.mipmap.english_selected);
                         imgBtnEnglish.setAlpha(1.0f);
+                        englishGrammarClicked();
                     }
                 }
                 return true;
@@ -479,6 +480,7 @@ public class MainActivity extends AppCompatActivity {
                         resetOptions();
                         v.setBackgroundResource(R.mipmap.health_selected);
                         imgBtnHealth.setAlpha(1.0f);
+                        humanBodyClicked();
                     }
                 }
                 return true;
@@ -499,6 +501,7 @@ public class MainActivity extends AppCompatActivity {
                         resetOptions();
                         v.setBackgroundResource(R.mipmap.wild_aquatic_selected);
                         imgBtnWild.setAlpha(1.0f);
+                        wildAquaticClicked();
                     }
                 }
                 return true;
@@ -519,6 +522,7 @@ public class MainActivity extends AppCompatActivity {
                         resetOptions();
                         v.setBackgroundResource(R.mipmap.space_selected);
                         imgBtnSpace.setAlpha(1.0f);
+                        spaceClicked();
                     }
                 }
                 return true;
@@ -539,6 +543,7 @@ public class MainActivity extends AppCompatActivity {
                         resetOptions();
                         v.setBackgroundResource(R.mipmap.world_gk_selected);
                         imgBtnWorldGk.setAlpha(1.0f);
+                        worldGeographyClicked();
                     }
                 }
                 return true;
@@ -729,16 +734,52 @@ public class MainActivity extends AppCompatActivity {
     public void basicGkClicked() {
         questionItemDataArray = parseQuestionArray("basic_gk");
         questionItemFinalArray = createRandomTimeArray();
-        System.out.println("@@@@@@@@@@@@@@@basicGkClicked clicked@@@@@@@@@@@"+questionItemFinalArray);
-
         Intent intent = new Intent(this, QuizActivity.class);
-
         Constant.arrayXyz = questionItemFinalArray;
-       // intent.putExtra("QuizArray",questionItemFinalArray);
+        intent.putExtra("screenTitle","Basic General Knowledge");
         startActivity(intent);
     }
 
-
+    public void humanBodyClicked() {
+        questionItemDataArray = parseQuestionArray("human_body");
+        questionItemFinalArray = createRandomTimeArray();
+        Intent intent = new Intent(this, QuizActivity.class);
+        intent.putExtra("screenTitle","Health & Human Body");
+        Constant.arrayXyz = questionItemFinalArray;
+        startActivity(intent);
+    }
+    public void spaceClicked() {
+        questionItemDataArray = parseQuestionArray("space");
+        questionItemFinalArray = createRandomTimeArray();
+        Intent intent = new Intent(this, QuizActivity.class);
+        Constant.arrayXyz = questionItemFinalArray;
+        intent.putExtra("screenTitle","Space");
+        startActivity(intent);
+    }
+    public void wildAquaticClicked() {
+        questionItemDataArray = parseQuestionArray("wild_aquatic");
+        questionItemFinalArray = createRandomTimeArray();
+        Intent intent = new Intent(this, QuizActivity.class);
+        Constant.arrayXyz = questionItemFinalArray;
+        intent.putExtra("screenTitle","Wild & Aquatic Life");
+        startActivity(intent);
+    }
+    public void worldGeographyClicked() {
+        questionItemDataArray = parseQuestionArray("world_geography");
+        questionItemFinalArray = createRandomTimeArray();
+        Intent intent = new Intent(this, QuizActivity.class);
+        Constant.arrayXyz = questionItemFinalArray;
+        intent.putExtra("screenTitle","World's Geography");
+        startActivity(intent);
+    }
+    public void englishGrammarClicked() {
+        questionItemDataArray = parseQuestionArray("eglish_grammar");
+        questionItemFinalArray = createRandomTimeArray();
+        Intent intent = new Intent(this, QuizActivity.class);
+        Constant.arrayXyz = questionItemFinalArray;
+        intent.putExtra("screenTitle","English Grammar");
+        startActivity(intent);
+    }
     public void otherAppsTabClicked(View v) {
         fab_txt_otherApps.setTextColor(getResources().getColor(R.color.red_done));
         //  System.out.println("@@@@@@@@@@@@@@@Our other apps clicked@@@@@@@@@@@");
