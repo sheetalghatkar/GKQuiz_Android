@@ -26,6 +26,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
     ArrayList<QuestionOptionModel> listQuestionOptions;
     int cardIndex = 0;
     Handler handler;
+
     public QuizAdapter(Context context) {
         this.context = context;
     }
@@ -105,16 +106,34 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
             holder.imgBtnStatus2.setVisibility(View.VISIBLE);
         }
 
-        if ((listQuestionOptions.size() > 2) && ((listQuestionOptions.get(2).getOptionStatus()) == -1)) {
-            holder.imgBtnStatus3.setVisibility(View.INVISIBLE);
+        //To check whether 3 option is available or not
+        if (listQuestionOptions.size() > 2) {
+            holder.imgViewD.setVisibility(View.VISIBLE);
+            holder.btnOption3.setVisibility(View.VISIBLE);
+            if ((listQuestionOptions.get(2).getOptionStatus()) == -1) {
+                holder.imgBtnStatus3.setVisibility(View.INVISIBLE);
+            } else {
+                holder.imgBtnStatus3.setVisibility(View.VISIBLE);
+            }
         } else {
-            holder.imgBtnStatus3.setVisibility(View.VISIBLE);
+            holder.imgBtnStatus3.setVisibility(View.INVISIBLE);
+            holder.imgViewC.setVisibility(View.INVISIBLE);
+            holder.btnOption3.setVisibility(View.INVISIBLE);
         }
 
-        if ((listQuestionOptions.size() > 3) && ((listQuestionOptions.get(3).getOptionStatus()) == -1)) {
-            holder.imgBtnStatus4.setVisibility(View.INVISIBLE);
+        //To check whether 4 option is available or not
+        if (listQuestionOptions.size() > 3) {
+            holder.imgViewD.setVisibility(View.VISIBLE);
+            holder.btnOption4.setVisibility(View.VISIBLE);
+            if ((listQuestionOptions.get(3).getOptionStatus()) == -1) {
+                holder.imgBtnStatus4.setVisibility(View.INVISIBLE);
+            } else {
+                holder.imgBtnStatus4.setVisibility(View.VISIBLE);
+            }
         } else {
-            holder.imgBtnStatus4.setVisibility(View.VISIBLE);
+            holder.imgBtnStatus4.setVisibility(View.INVISIBLE);
+            holder.imgViewD.setVisibility(View.INVISIBLE);
+            holder.btnOption4.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -136,6 +155,11 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
         public ImageButton imgBtnStatus3;
         public ImageButton imgBtnStatus4;
 
+        ImageView imgViewA;
+        ImageView imgViewB;
+        ImageView imgViewC;
+        ImageView imgViewD;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -150,6 +174,10 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
             this.imgBtnStatus3 = itemView.findViewById(R.id.imgBtnStatus3);
             this.imgBtnStatus4 = itemView.findViewById(R.id.imgBtnStatus4);
 
+            this.imgViewA = itemView.findViewById(R.id.imgViewA);
+            this.imgViewB = itemView.findViewById(R.id.imgViewB);
+            this.imgViewC = itemView.findViewById(R.id.imgViewC);
+            this.imgViewD = itemView.findViewById(R.id.imgViewD);
             //------------------------------------------
 
             QuizActivity quizActivity = (QuizActivity) context;
@@ -172,7 +200,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                                     try {
                                         btnOption1.setAlpha((float) 1.0);
                                         imgBtnStatus1.setAlpha((float) 1.0);
-                                    } catch(Exception e) {
+                                    } catch (Exception e) {
 
                                     }
                                 }
@@ -226,7 +254,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                                     try {
                                         btnOption2.setAlpha((float) 1.0);
                                         imgBtnStatus2.setAlpha((float) 1.0);
-                                    } catch(Exception e) {
+                                    } catch (Exception e) {
 
                                     }
                                 }
@@ -256,7 +284,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                             if (questionItemModelTemp.getAnswer() == 1) {
                                 quizActivity.playSoundOptionClick("well_done");
                                 QuizActivity.reloadRecycleView(getBindingAdapterPosition());
-                            }else {
+                            } else {
                                 quizActivity.playSoundOptionClick("wrong_ans_sound");
                             }
                         }
@@ -281,7 +309,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                                     try {
                                         btnOption3.setAlpha((float) 1.0);
                                         imgBtnStatus3.setAlpha((float) 1.0);
-                                    } catch(Exception e) {
+                                    } catch (Exception e) {
 
                                     }
                                 }
@@ -310,7 +338,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                             if (questionItemModelTemp.getAnswer() == 2) {
                                 quizActivity.playSoundOptionClick("great_job");
                                 QuizActivity.reloadRecycleView(getBindingAdapterPosition());
-                            }else {
+                            } else {
                                 quizActivity.playSoundOptionClick("wrong_ans_sound");
                             }
                         }
@@ -335,7 +363,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                                     try {
                                         btnOption4.setAlpha((float) 1.0);
                                         imgBtnStatus4.setAlpha((float) 1.0);
-                                    } catch(Exception e) {
+                                    } catch (Exception e) {
 
                                     }
                                 }
@@ -367,7 +395,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                             if (questionItemModelTemp.getAnswer() == 3) {
                                 quizActivity.playSoundOptionClick("excellent");
                                 QuizActivity.reloadRecycleView(getBindingAdapterPosition());
-                            }else {
+                            } else {
                                 quizActivity.playSoundOptionClick("wrong_ans_sound");
                             }
                         }

@@ -16,6 +16,7 @@ import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
+
 import com.bumptech.glide.Glide;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -25,6 +26,7 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Handler;
@@ -35,6 +37,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.core.view.ViewCompat;
+
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -48,9 +51,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -83,8 +88,8 @@ public class MainActivity extends AppCompatActivity {
     ImageButton imgBtnSpace;
     ImageButton imgBtnWorldGk;
     ImageButton imgBtnHealth;
-    public static ArrayList<QuestionItem>  questionItemDataArray;
-    public static ArrayList<QuestionItem>  questionItemFinalArray;
+    public static ArrayList<QuestionItem> questionItemDataArray;
+    public static ArrayList<QuestionItem> questionItemFinalArray;
 
     //    CircleLayoutManager circleLayoutManager;// = new CircleLayoutManager(context);
     //    private AdView mAdView;
@@ -108,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
 
         //  binding = ActivityMainBinding.inflate(getLayoutInflater());
         //  setContentView(binding.getRoot());
-      //  Log.v("xxx", "Inside getSoundFlag loop----");
+        //  Log.v("xxx", "Inside getSoundFlag loop----");
 
         //  imgViewHomeGif = findViewById(R.id.imgViewHomeGif);
         btnImgHomeSound = findViewById(R.id.btnSoundHomeScreen);
@@ -120,12 +125,7 @@ public class MainActivity extends AppCompatActivity {
         optionsRelativeLayout = (RelativeLayout) findViewById(R.id.cont);
 
 
-
-
-
-
-
-        System.out.println("Inside --"+Resources.getSystem().getDisplayMetrics().widthPixels);
+        System.out.println("Inside --" + Resources.getSystem().getDisplayMetrics().widthPixels);
         Display display = getWindowManager().getDefaultDisplay();
         Point m_size = new Point();
         display.getSize(m_size);
@@ -205,9 +205,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-
-
-
         imgBtnBasicGk = findViewById(R.id.imgBtnBasicGk);
         imgBtnEnglish = findViewById(R.id.imgBtnEnglish);
         imgBtnWild = findViewById(R.id.imgBtnWild);
@@ -226,44 +223,44 @@ public class MainActivity extends AppCompatActivity {
         RelativeLayout.LayoutParams layoutParam1 = new RelativeLayout.LayoutParams(250, 250);
         float angleDeg = 0 * 360.0f / 6 - 90.0f;
         float angleRad = (float) (angleDeg * Math.PI / 180.0f);
-        layoutParam1.leftMargin = (int)(getwidth * (float) Math.cos(angleRad)) + xAdd;
-        layoutParam1.topMargin = (int)(getwidth * (float) Math.sin(angleRad)) + yAdd;
+        layoutParam1.leftMargin = (int) (getwidth * (float) Math.cos(angleRad)) + xAdd;
+        layoutParam1.topMargin = (int) (getwidth * (float) Math.sin(angleRad)) + yAdd;
         imgBtnBasicGk.setLayoutParams(layoutParam1);
 
 
         RelativeLayout.LayoutParams layoutParam2 = new RelativeLayout.LayoutParams(250, 250);
         angleDeg = 5 * 360.0f / 6 - 90.0f;
         angleRad = (float) (angleDeg * Math.PI / 180.0f);
-        layoutParam2.leftMargin = (int)(getwidth * (float) Math.cos(angleRad)) + xAdd;
-        layoutParam2.topMargin = (int)(getwidth * (float) Math.sin(angleRad)) + yAdd;
+        layoutParam2.leftMargin = (int) (getwidth * (float) Math.cos(angleRad)) + xAdd;
+        layoutParam2.topMargin = (int) (getwidth * (float) Math.sin(angleRad)) + yAdd;
         imgBtnEnglish.setLayoutParams(layoutParam2);
 
         RelativeLayout.LayoutParams layoutParam3 = new RelativeLayout.LayoutParams(250, 250);
-         angleDeg = 2 * 360.0f / 6 - 90.0f;
-         angleRad = (float) (angleDeg * Math.PI / 180.0f);
-        layoutParam3.leftMargin = (int)(getwidth * (float) Math.cos(angleRad)) + xAdd;
-        layoutParam3.topMargin = (int)(getwidth * (float) Math.sin(angleRad)) + yAdd;
+        angleDeg = 2 * 360.0f / 6 - 90.0f;
+        angleRad = (float) (angleDeg * Math.PI / 180.0f);
+        layoutParam3.leftMargin = (int) (getwidth * (float) Math.cos(angleRad)) + xAdd;
+        layoutParam3.topMargin = (int) (getwidth * (float) Math.sin(angleRad)) + yAdd;
         imgBtnWild.setLayoutParams(layoutParam3);
 
         RelativeLayout.LayoutParams layoutParam4 = new RelativeLayout.LayoutParams(250, 250);
         angleDeg = 3 * 360.0f / 6 - 90.0f;
         angleRad = (float) (angleDeg * Math.PI / 180.0f);
-        layoutParam4.leftMargin = (int)(getwidth * (float) Math.cos(angleRad)) + xAdd;
-        layoutParam4.topMargin = (int)(getwidth * (float) Math.sin(angleRad)) + yAdd;
+        layoutParam4.leftMargin = (int) (getwidth * (float) Math.cos(angleRad)) + xAdd;
+        layoutParam4.topMargin = (int) (getwidth * (float) Math.sin(angleRad)) + yAdd;
         imgBtnSpace.setLayoutParams(layoutParam4);
 
         RelativeLayout.LayoutParams layoutParam5 = new RelativeLayout.LayoutParams(250, 250);
         angleDeg = 4 * 360.0f / 6 - 90.0f;
         angleRad = (float) (angleDeg * Math.PI / 180.0f);
-        layoutParam5.leftMargin = (int)(getwidth * (float) Math.cos(angleRad)) + xAdd;
-        layoutParam5.topMargin = (int)(getwidth * (float) Math.sin(angleRad)) + yAdd;
+        layoutParam5.leftMargin = (int) (getwidth * (float) Math.cos(angleRad)) + xAdd;
+        layoutParam5.topMargin = (int) (getwidth * (float) Math.sin(angleRad)) + yAdd;
         imgBtnWorldGk.setLayoutParams(layoutParam5);
 
         RelativeLayout.LayoutParams layoutParam6 = new RelativeLayout.LayoutParams(250, 250);
-        angleDeg = 1     * 360.0f / 6 - 90.0f;
+        angleDeg = 1 * 360.0f / 6 - 90.0f;
         angleRad = (float) (angleDeg * Math.PI / 180.0f);
-        layoutParam6.leftMargin = (int)(getwidth * (float) Math.cos(angleRad)) + xAdd;
-        layoutParam6.topMargin = (int)(getwidth * (float) Math.sin(angleRad)) + yAdd;
+        layoutParam6.leftMargin = (int) (getwidth * (float) Math.cos(angleRad)) + xAdd;
+        layoutParam6.topMargin = (int) (getwidth * (float) Math.sin(angleRad)) + yAdd;
         imgBtnHealth.setLayoutParams(layoutParam6);
 
         imgViewsettingBg.setOnClickListener(new View.OnClickListener() {
@@ -324,9 +321,6 @@ public class MainActivity extends AppCompatActivity {
         ViewCompat.setTranslationZ(fab_txt_privacyPolicy, 15);
 
         //Parse json files to array
-
-
-
 
 
         fab_setting.setOnTouchListener(new View.OnTouchListener() {
@@ -403,7 +397,7 @@ public class MainActivity extends AppCompatActivity {
                     case MotionEvent.ACTION_UP: {
                         ((ImageButton) v).setAlpha((float) 1.0);
                         System.out.println("*******&&&&");
-                       // v.animate().cancel();
+                        // v.animate().cancel();
                         if (sharedPreferences.contains(soundHomeActivity)) {
                             Boolean getSoundFlag = sharedPreferences.getBoolean(soundHomeActivity, false);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -412,6 +406,7 @@ public class MainActivity extends AppCompatActivity {
                             editor.commit();
                             if (getSoundFlag == true) {
                                 btnImgHomeSound.setImageResource(R.mipmap.sound_on);
+                                playSound();
                             } else {
                                 btnImgHomeSound.setImageResource(R.mipmap.sound_off);
                                 stopPlayerSound();
@@ -430,6 +425,7 @@ public class MainActivity extends AppCompatActivity {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN: {
                         ((ImageButton) v).setAlpha((float) 0.5);
+                        playSoundOptionClick();
                         break;
                     }
                     case MotionEvent.ACTION_UP: {
@@ -451,6 +447,7 @@ public class MainActivity extends AppCompatActivity {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN: {
                         ((ImageButton) v).setAlpha((float) 0.5);
+                        playSoundOptionClick();
                         break;
                     }
                     case MotionEvent.ACTION_UP: {
@@ -473,6 +470,7 @@ public class MainActivity extends AppCompatActivity {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN: {
                         ((ImageButton) v).setAlpha((float) 0.5);
+                        playSoundOptionClick();
                         break;
                     }
                     case MotionEvent.ACTION_UP: {
@@ -494,6 +492,7 @@ public class MainActivity extends AppCompatActivity {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN: {
                         ((ImageButton) v).setAlpha((float) 0.5);
+                        playSoundOptionClick();
                         break;
                     }
                     case MotionEvent.ACTION_UP: {
@@ -515,6 +514,7 @@ public class MainActivity extends AppCompatActivity {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN: {
                         ((ImageButton) v).setAlpha((float) 0.5);
+                        playSoundOptionClick();
                         break;
                     }
                     case MotionEvent.ACTION_UP: {
@@ -535,6 +535,7 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("Basic Gk clicked.");
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN: {
+                        playSoundOptionClick();
                         ((ImageButton) v).setAlpha((float) 0.5);
                         break;
                     }
@@ -550,10 +551,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
     public ArrayList<QuestionItem> createRandomTimeArray() {
-        System.out.println("Inside createarray---+"+questionItemDataArray);
+        System.out.println("Inside createarray---+" + questionItemDataArray);
         int maxCount = questionItemDataArray.size();
-        questionItemFinalArray =  new ArrayList<QuestionItem>();
+        questionItemFinalArray = new ArrayList<QuestionItem>();
         ArrayList<Integer> selectedArrayOfIndex = new ArrayList<Integer>();
         for (int i = 0; i < maxCount; i++) {
 
@@ -579,8 +581,8 @@ public class MainActivity extends AppCompatActivity {
         questionItemDataArray = new ArrayList<>();
 
         try {
-            strJson = readFile(fileName+".json");
-          //  System.out.println("parseGuessTimeArray strJson****"+strJson);
+            strJson = readFile(fileName + ".json");
+            //  System.out.println("parseGuessTimeArray strJson****"+strJson);
 
             String data = "";
             try {
@@ -589,24 +591,24 @@ public class MainActivity extends AppCompatActivity {
                 JSONObject jsonRootObject = new JSONObject(strJson);
                 //Get the instance of JSONArray that contains JSONObjects
                 JSONArray jsonArray = jsonRootObject.optJSONArray(fileName);
-                  System.out.println("jsonArray#####"+jsonArray);
+                System.out.println("jsonArray#####" + jsonArray);
 
                 //Iterate the jsonArray and print the info of JSONObjects
-                for(int i=0; i < jsonArray.length(); i++){
+                for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     try {
                         //  System.out.println("jsonObject#####"+jsonObject);
                         JSONArray jOptions = jsonObject.getJSONArray("option");
                         ArrayList<QuestionOptionModel> listOptions = new ArrayList<QuestionOptionModel>();
 
-                        for (int iCnt=0; iCnt<jOptions.length(); iCnt++) {
+                        for (int iCnt = 0; iCnt < jOptions.length(); iCnt++) {
                             if (jOptions.length() != 0) {
                                 JSONObject jsonOptionObject = jOptions.getJSONObject(iCnt);
-                                QuestionOptionModel questionOptionModel = new QuestionOptionModel(jsonOptionObject.getString("optionStr"),jsonOptionObject.getInt("optionStatus"));
+                                QuestionOptionModel questionOptionModel = new QuestionOptionModel(jsonOptionObject.getString("optionStr"), jsonOptionObject.getInt("optionStatus"));
                                 listOptions.add(questionOptionModel);
                             }
                         }
-                        QuestionItem questionItem = new QuestionItem(jsonObject.getString("question"), listOptions,jsonObject.getInt("answer"));
+                        QuestionItem questionItem = new QuestionItem(jsonObject.getString("question"), listOptions, jsonObject.getInt("answer"));
                         //  System.out.println("guessTimeItem!!!!!"+guessTimeItem);
                         //  System.out.println("yyyyyyy"+quizItem.arrayCaption);
                         questionItemDataArray.add(questionItem);
@@ -614,29 +616,30 @@ public class MainActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
-                   System.out.println("----guessTimeDataArray---"+questionItemDataArray);
+                System.out.println("----guessTimeDataArray---" + questionItemDataArray);
                 return questionItemDataArray;
-            } catch (JSONException e) {e.printStackTrace();}
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
         return questionItemDataArray;
     }
 
-    public String readFile(String fileName) throws IOException
-    {
+    public String readFile(String fileName) throws IOException {
         System.out.println("----inside readFile---");
         BufferedReader reader = null;
         reader = new BufferedReader(new InputStreamReader(getAssets().open(fileName), "UTF-8"));
 
         String content = "";
         String line;
-        while ((line = reader.readLine()) != null)
-        {
+        while ((line = reader.readLine()) != null) {
             content = content + line;
         }
         return content;
     }
+
     void resetOptions() {
         imgBtnWorldGk.setBackgroundResource(R.mipmap.world_gk);
         imgBtnEnglish.setBackgroundResource(R.mipmap.english);
@@ -655,7 +658,18 @@ public class MainActivity extends AppCompatActivity {
 
     protected void onRestart() {
         super.onRestart();
-        Log.d("lifecycle", "onRestart invoked");
+        imgBtnBasicGk.setAlpha(1.0f);
+        imgBtnEnglish.setAlpha(1.0f);
+        imgBtnHealth.setAlpha(1.0f);
+        imgBtnSpace.setAlpha(1.0f);
+        imgBtnWild.setAlpha(1.0f);
+        imgBtnWorldGk.setAlpha(1.0f);
+        imgBtnWorldGk.setBackgroundResource(R.mipmap.world_gk);
+        imgBtnEnglish.setBackgroundResource(R.mipmap.english);
+        imgBtnHealth.setBackgroundResource(R.mipmap.health);
+        imgBtnSpace.setBackgroundResource(R.mipmap.space);
+        imgBtnWild.setBackgroundResource(R.mipmap.wild_aquatic);
+        imgBtnBasicGk.setBackgroundResource(R.mipmap.basic_gk);
         if (sharedPreferences.contains(soundHomeActivity)) {
             Boolean getSoundFlag = sharedPreferences.getBoolean(soundHomeActivity, false);
             if (getSoundFlag == true) {
@@ -667,6 +681,7 @@ public class MainActivity extends AppCompatActivity {
             stopPlayerSound();
         }
     }
+
 
     public void settingClicked(View v) {
         System.out.println("@@@@@@@@@@@@@@@Home clicked@@@@@@@@@@@");
@@ -736,50 +751,121 @@ public class MainActivity extends AppCompatActivity {
         questionItemFinalArray = createRandomTimeArray();
         Intent intent = new Intent(this, QuizActivity.class);
         Constant.arrayXyz = questionItemFinalArray;
-        intent.putExtra("screenTitle","Basic General Knowledge");
-        startActivity(intent);
+        intent.putExtra("screenTitle", "Basic General Knowledge");
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                closeFab();
+                try {
+                    startActivity(intent);
+                } catch (Exception e) {
+                    //e.toString();
+                }
+            }
+        }, 500);
     }
 
     public void humanBodyClicked() {
         questionItemDataArray = parseQuestionArray("human_body");
         questionItemFinalArray = createRandomTimeArray();
         Intent intent = new Intent(this, QuizActivity.class);
-        intent.putExtra("screenTitle","Health & Human Body");
+        intent.putExtra("screenTitle", "Health & Human Body");
         Constant.arrayXyz = questionItemFinalArray;
-        startActivity(intent);
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                closeFab();
+                try {
+                    startActivity(intent);
+                } catch (Exception e) {
+                    //e.toString();
+                }
+            }
+        }, 500);
     }
+
     public void spaceClicked() {
         questionItemDataArray = parseQuestionArray("space");
         questionItemFinalArray = createRandomTimeArray();
         Intent intent = new Intent(this, QuizActivity.class);
         Constant.arrayXyz = questionItemFinalArray;
-        intent.putExtra("screenTitle","Space");
-        startActivity(intent);
+        intent.putExtra("screenTitle", "Space");
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                closeFab();
+                try {
+                    startActivity(intent);
+                } catch (Exception e) {
+                    //e.toString();
+                }
+            }
+        }, 500);
     }
+
     public void wildAquaticClicked() {
         questionItemDataArray = parseQuestionArray("wild_aquatic");
         questionItemFinalArray = createRandomTimeArray();
         Intent intent = new Intent(this, QuizActivity.class);
         Constant.arrayXyz = questionItemFinalArray;
-        intent.putExtra("screenTitle","Wild & Aquatic Life");
-        startActivity(intent);
+        intent.putExtra("screenTitle", "Wild & Aquatic Life");
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                closeFab();
+                try {
+                    startActivity(intent);
+                } catch (Exception e) {
+                    //e.toString();
+                }
+            }
+        }, 500);
     }
+
     public void worldGeographyClicked() {
         questionItemDataArray = parseQuestionArray("world_geography");
         questionItemFinalArray = createRandomTimeArray();
         Intent intent = new Intent(this, QuizActivity.class);
         Constant.arrayXyz = questionItemFinalArray;
-        intent.putExtra("screenTitle","World's Geography");
-        startActivity(intent);
+        intent.putExtra("screenTitle", "World's Geography");
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                closeFab();
+                try {
+                    startActivity(intent);
+                } catch (Exception e) {
+                    //e.toString();
+                }
+            }
+        }, 500);
     }
+
     public void englishGrammarClicked() {
         questionItemDataArray = parseQuestionArray("eglish_grammar");
         questionItemFinalArray = createRandomTimeArray();
         Intent intent = new Intent(this, QuizActivity.class);
         Constant.arrayXyz = questionItemFinalArray;
-        intent.putExtra("screenTitle","English Grammar");
-        startActivity(intent);
+        intent.putExtra("screenTitle", "English Grammar");
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                closeFab();
+                try {
+                    startActivity(intent);
+                } catch (Exception e) {
+                    //e.toString();
+                }
+            }
+        }, 500);
     }
+
     public void otherAppsTabClicked(View v) {
         fab_txt_otherApps.setTextColor(getResources().getColor(R.color.red_done));
         //  System.out.println("@@@@@@@@@@@@@@@Our other apps clicked@@@@@@@@@@@");
@@ -833,23 +919,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void soundHomeBtnClicked(View v) {
-        Log.v("soundHomeBtnClicked", "i m inside homeBtnClicked");
-        if (sharedPreferences.contains(soundHomeActivity)) {
-            Boolean getSoundFlag = sharedPreferences.getBoolean(soundHomeActivity, false);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            getSoundFlag = !getSoundFlag;
-            editor.putBoolean(soundHomeActivity, getSoundFlag);
-            editor.commit();
-            if (getSoundFlag == true) {
-                playSound();
-                btnImgHomeSound.setImageResource(R.mipmap.sound_on);
-            } else {
-                btnImgHomeSound.setImageResource(R.mipmap.sound_off);
-                stopPlayerSound();
-            }
-        }
-    }
 
     public void playSound() {
         if (MainActivity.sharedPreferences.getBoolean(soundHomeActivity, false)) {
@@ -873,6 +942,51 @@ public class MainActivity extends AppCompatActivity {
 
         });
     }
+
+    void playSoundOptionClick() {
+        if (MainActivity.sharedPreferences.getBoolean(soundHomeActivity, false)) {
+            if (player != null) {
+                player.stop();
+                //  player.release();
+            }
+
+
+            int idSoundBg = getApplicationContext().getResources().getIdentifier("com.mobiapps360.GKQuiz:raw/option_click_sound", null, null);
+            //   player.setVolume(0.0f, 0.0f);
+            //System.out.println("playSound clicked ---------" + idSoundBg);
+
+            try {
+                player = MediaPlayer.create(getBaseContext(), idSoundBg);
+            } catch (Exception e) {
+                Log.e("Music Exception", "catch button click sound play");
+            }
+
+            player.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+
+                public void onPrepared(MediaPlayer mp) {
+                    player.start();
+                }
+            });
+
+            player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    player.release();
+                }
+
+
+            });
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+
+    }
+
 
     @Override
     protected void onStop() {

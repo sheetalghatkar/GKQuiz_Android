@@ -175,13 +175,13 @@ public class QuizActivity extends AppCompatActivity {
             }
         });*/
 
-       // System.out.println("Quiz----****" + btnImgHomeSound);
+        // System.out.println("Quiz----****" + btnImgHomeSound);
         sharedPreferences = getSharedPreferences(myPreferences, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         if (sharedPreferences.contains(soundQuizActivity)) {
             Boolean getSoundFlag = sharedPreferences.getBoolean(soundQuizActivity, false);
             if (getSoundFlag == true) {
-               // playSound();
+                // playSound();
                 btnImgHomeSound.setImageResource(R.mipmap.sound_on);
             } else {
                 btnImgHomeSound.setImageResource(R.mipmap.sound_off);
@@ -204,7 +204,7 @@ public class QuizActivity extends AppCompatActivity {
                     }
                     case MotionEvent.ACTION_UP: {
                         ((ImageButton) v).setAlpha((float) 1.0);
-                       // System.out.println("*******&&&&");
+                        // System.out.println("*******&&&&");
                         // v.animate().cancel();
                         if (sharedPreferences.contains(soundQuizActivity)) {
                             Boolean getSoundFlag = sharedPreferences.getBoolean(soundQuizActivity, false);
@@ -216,7 +216,6 @@ public class QuizActivity extends AppCompatActivity {
                                 btnImgHomeSound.setImageResource(R.mipmap.sound_on);
                             } else {
                                 btnImgHomeSound.setImageResource(R.mipmap.sound_off);
-                                stopPlayerSound();
                             }
                         }
                     }
@@ -271,9 +270,9 @@ public class QuizActivity extends AppCompatActivity {
         if (MainActivity.sharedPreferences.getBoolean(soundQuizActivity, false)) {
             int idSoundBg = getApplicationContext().getResources().getIdentifier("com.mobiapps360.GKQuiz:raw/" + soundName, null, null);
             //   player.setVolume(0.0f, 0.0f);
-        //System.out.println("playSound clicked ---------" + idSoundBg);
+            //System.out.println("playSound clicked ---------" + idSoundBg);
 
-        try {
+            try {
                 player = MediaPlayer.create(getBaseContext(), idSoundBg);
             } catch (Exception e) {
                 Log.e("Music Exception", "catch button click sound play");
@@ -332,28 +331,6 @@ public class QuizActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void stopPlayerSound() {
-        if (player != null) {
-            player.stop();
-        }
-    }
-
-    public void soundHomeBtnClicked(View v) {
-       // Log.v("soundHomeBtnClicked", "i m inside homeBtnClicked");
-        if (sharedPreferences.contains(soundQuizActivity)) {
-            Boolean getSoundFlag = sharedPreferences.getBoolean(soundQuizActivity, false);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            getSoundFlag = !getSoundFlag;
-            editor.putBoolean(soundQuizActivity, getSoundFlag);
-            editor.commit();
-            if (getSoundFlag == true) {
-                btnImgHomeSound.setImageResource(R.mipmap.sound_on);
-            } else {
-                btnImgHomeSound.setImageResource(R.mipmap.sound_off);
-                stopPlayerSound();
-            }
-        }
-    }
 
     @Override
     protected void onStop() {
