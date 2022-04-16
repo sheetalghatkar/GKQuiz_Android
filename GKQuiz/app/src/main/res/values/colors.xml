@@ -17,4 +17,5 @@
     <color name="text_shadow_white">#FFFFFF</color>
     <color name="light_font">#FBFBFB</color>
     <color name="blue_other_apps">#1f90cc</color>
+    <color name="green_ans">#8DC53E</color>
 </resources>

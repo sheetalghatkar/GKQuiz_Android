@@ -98,6 +98,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
             holder.imgBtnStatus1.setVisibility(View.INVISIBLE);
         } else {
             holder.imgBtnStatus1.setVisibility(View.VISIBLE);
+
         }
 
         if ((listQuestionOptions.get(1).getOptionStatus()) == -1) {
@@ -129,6 +130,12 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                 holder.imgBtnStatus4.setVisibility(View.INVISIBLE);
             } else {
                 holder.imgBtnStatus4.setVisibility(View.VISIBLE);
+//                if ((listQuestionOptions.get(3).getOptionStatus()) == 1) {
+//                    holder.btnOption4.setTextColor(context.getResources().getColor(R.color.green_ans));
+//                } else {
+//                    holder.btnOption4.setTextColor(context.getResources().getColor(R.color.red_done));
+//                }
+
             }
         } else {
             holder.imgBtnStatus4.setVisibility(View.INVISIBLE);
@@ -393,9 +400,13 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                             Constant.arrayXyz.set(getBindingAdapterPosition(), questionItemModelTemp);
                             notifyItemChanged(getBindingAdapterPosition());
                             if (questionItemModelTemp.getAnswer() == 3) {
+                               // System.out.println("4 correct-----");
+                               // ((Button) v).setTextColor(context.getResources().getColor(R.color.green_ans));
                                 quizActivity.playSoundOptionClick("excellent");
                                 QuizActivity.reloadRecycleView(getBindingAdapterPosition());
                             } else {
+                               // System.out.println("4 false-----");
+                            //    ((Button) v).setTextColor(context.getResources().getColor(R.color.red_done));
                                 quizActivity.playSoundOptionClick("wrong_ans_sound");
                             }
                         }
