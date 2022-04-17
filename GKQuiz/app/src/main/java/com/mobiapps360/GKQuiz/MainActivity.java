@@ -159,14 +159,14 @@ public class MainActivity extends AppCompatActivity {
             public void onAdLoaded() {
                 // Code to be executed when an ad finishes loading.
                 super.onAdLoaded();
-                 Toast.makeText(MainActivity.this,"ad loaded",Toast.LENGTH_SHORT).show();
+                // Toast.makeText(MainActivity.this,"ad loaded",Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onAdFailedToLoad(LoadAdError adError) {
                 // Code to be executed when an ad request fails.
                 super.onAdFailedToLoad(adError);
-                System.out.println("Show error####"+adError);
+                //System.out.println("Show error####"+adError);
                 mAdView.loadAd(adRequest);
             }
 
@@ -610,7 +610,7 @@ public class MainActivity extends AppCompatActivity {
                                 listOptions.add(questionOptionModel);
                             }
                         }
-                        QuestionItem questionItem = new QuestionItem(jsonObject.getString("question"), listOptions, jsonObject.getInt("answer"));
+                        QuestionItem questionItem = new QuestionItem(jsonObject.getString("question"), listOptions, jsonObject.getInt("answer"),jsonObject.getBoolean("isReadOnly"));
                         //  System.out.println("guessTimeItem!!!!!"+guessTimeItem);
                         //  System.out.println("yyyyyyy"+quizItem.arrayCaption);
                         questionItemDataArray.add(questionItem);

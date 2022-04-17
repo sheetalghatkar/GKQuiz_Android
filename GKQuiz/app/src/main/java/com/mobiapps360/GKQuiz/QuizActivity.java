@@ -44,6 +44,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.core.view.ViewCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
@@ -87,7 +88,7 @@ public class QuizActivity extends AppCompatActivity {
     static QuizAdapter quizAdapter;
     MediaPlayer player;
     ArrayList<QuestionItem> questionItemModelArray;
-    static QuizRecycleView recyclerView;
+    static RecyclerView recyclerView;
     static com.mobiapps360.GKQuiz.CircleLayoutManager circleLayoutManager;
     private AdView mAdView;
     AdRequest adRequest;
@@ -128,19 +129,18 @@ public class QuizActivity extends AppCompatActivity {
         handlerNoConnection = new Handler();
 
 
+
+
+        recyclerView = findViewById(R.id.recycler);
+
         quizAdapter = new QuizAdapter(this);
         quizAdapter.setListMenuItem(questionItemModelArray);
 
-        recyclerView = (QuizRecycleView) findViewById(R.id.recycler);
-        com.mobiapps360.GKQuiz.CircleLayoutManager circleLayoutManager = new com.mobiapps360.GKQuiz.CircleLayoutManager(this);
-        recyclerView.addOnScrollListener(new com.mobiapps360.GKQuiz.CenterScrollListener());
-
-
-        SnapHelper snapHelper = new PagerSnapHelper();
-        snapHelper.attachToRecyclerView(recyclerView);
-        recyclerView.setLayoutManager(circleLayoutManager);
         recyclerView.setAdapter(quizAdapter);
-
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        SnapHelper snapHelper = new PagerSnapHelper();
+        recyclerView.setLayoutManager(layoutManager);
+        snapHelper.attachToRecyclerView(recyclerView);
         recyclerView.setItemAnimator(null);
 
         recyclerView
@@ -152,13 +152,18 @@ public class QuizActivity extends AppCompatActivity {
                         int offset = recyclerView.computeHorizontalScrollOffset();
                         if (offset % recyclerView.getWidth() == 0) {
                             int position = offset / recyclerView.getWidth();
-                            System.out.println("position*****"+position);
 //                            int idSwipeImg = getApplicationContext().getResources().getIdentifier("com.mobiapps360.LearnClockTime:raw/swipe", null, null);
+//                            currentIndex = position;
 
+//                            System.out.println("I m here" + clickCount);
+                            clickCount = clickCount + 1;
+                            if (clickCount > Constant.showInterstialAdAfterCount) {
+                                clickCount = 0;
+                                showInterstitialAds(false);
+                            }
                         }
                     }
                 });
-
 
 
 
@@ -284,16 +289,7 @@ public class QuizActivity extends AppCompatActivity {
                 try {
                     if (isShowNextIndex) {
                         if (!((Constant.arrayXyz.size() - 1) == updatePosition)) {
-                            recyclerView.scrollToPosition(updatePosition + 1);
-                        }
-                    }
-                    if (previousIndex != updatePosition) {
-                        System.out.println("clickCount updated"+clickCount);
-                        previousIndex = updatePosition;
-                        clickCount = clickCount + 1;
-                        if (clickCount > Constant.showInterstialAdAfterCount) {
-                            clickCount = 0;
-                            showInterstitialAds(false);
+                            recyclerView.smoothScrollToPosition(updatePosition + 1);
                         }
                     }
                     //  recyclerView.getLayoutManager().smoothScrollToPosition(recyclerView, new RecyclerView.State(), updatePosition+1);

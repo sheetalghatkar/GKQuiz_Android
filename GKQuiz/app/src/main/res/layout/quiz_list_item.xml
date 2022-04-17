@@ -9,7 +9,6 @@
     android:layout_marginBottom="10dp">
 
 
-
     <View
         android:id="@+id/viewEmptyOtherApps"
         android:layout_width="match_parent"
@@ -43,27 +42,42 @@
             android:id="@+id/linearLayout0"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="10dp"
             android:orientation="vertical"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/quizCardNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1/13"
+                android:paddingRight="15dp"
+                android:textColor="@color/red_done"
+                android:fontFamily="sans-serif-black"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_gravity="end"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
             <TextView
                 android:id="@+id/txtViewQuestion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
                 android:fontFamily="sans-serif-black"
                 android:gravity="center_horizontal"
                 android:textAlignment="center"
                 android:textColor="@android:color/black"
                 android:textSize="18dp"
                 android:textStyle="bold"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
 
             <LinearLayout
@@ -79,32 +93,32 @@
                     android:id="@+id/imgViewA"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:layout_marginLeft="15dp"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="15dp"
                     android:src="@mipmap/option_a" />
 
                 <Button
                     android:id="@+id/btnOption1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-black"
                     android:background="@android:color/transparent"
+                    android:fontFamily="sans-serif-black"
                     android:gravity="left|center_vertical"
-                    android:textColor="@android:color/black"
                     android:letterSpacing="0.0"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
                     android:maxWidth="250dp"
-                    android:textAllCaps="false"/>
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/black"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
 
                 <ImageButton
                     android:id="@+id/imgBtnStatus1"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:background="@null"
-                    android:visibility="invisible"
                     android:scaleType="fitCenter"
-                    android:src="@mipmap/wrong_sign" />
+                    android:src="@mipmap/wrong_sign"
+                    android:visibility="invisible" />
 
 
             </LinearLayout>
@@ -123,32 +137,32 @@
                     android:id="@+id/imgViewB"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:layout_marginLeft="15dp"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="15dp"
                     android:src="@mipmap/option_b" />
 
                 <Button
                     android:id="@+id/btnOption2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
                     android:fontFamily="sans-serif-black"
                     android:gravity="left|center_vertical"
-                    android:background="@android:color/transparent"
-                    android:textColor="@android:color/black"
                     android:letterSpacing="0.0"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
                     android:maxWidth="250dp"
-                    android:textAllCaps="false"/>
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/black"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
 
                 <ImageButton
                     android:id="@+id/imgBtnStatus2"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:background="@null"
-                    android:visibility="invisible"
                     android:scaleType="fitCenter"
-                    android:src="@mipmap/wrong_sign" />
+                    android:src="@mipmap/wrong_sign"
+                    android:visibility="invisible" />
             </LinearLayout>
 
             <LinearLayout
@@ -164,32 +178,32 @@
                     android:id="@+id/imgViewC"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:layout_marginLeft="15dp"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="15dp"
                     android:src="@mipmap/option_c" />
 
                 <Button
                     android:id="@+id/btnOption3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
                     android:fontFamily="sans-serif-black"
                     android:gravity="left|center_vertical"
-                    android:background="@android:color/transparent"
-                    android:textColor="@android:color/black"
                     android:letterSpacing="0.00"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
                     android:maxWidth="250dp"
-                    android:textAllCaps="false"/>
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/black"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
 
                 <ImageButton
                     android:id="@+id/imgBtnStatus3"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:visibility="invisible"
                     android:background="@null"
                     android:scaleType="fitCenter"
-                    android:src="@mipmap/wrong_sign" />
+                    android:src="@mipmap/wrong_sign"
+                    android:visibility="invisible" />
 
             </LinearLayout>
 
@@ -206,23 +220,23 @@
                     android:id="@+id/imgViewD"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:layout_marginLeft="15dp"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="15dp"
                     android:src="@mipmap/option_d" />
 
                 <Button
                     android:id="@+id/btnOption4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-black"
                     android:background="@android:color/transparent"
+                    android:fontFamily="sans-serif-black"
                     android:gravity="left|center_vertical"
                     android:letterSpacing="0.0"
+                    android:maxWidth="250dp"
+                    android:textAllCaps="false"
                     android:textColor="@android:color/black"
                     android:textSize="15sp"
-                    android:textStyle="bold"
-                    android:maxWidth="250dp"
-                    android:textAllCaps="false"/>
+                    android:textStyle="bold" />
 
                 <ImageButton
                     android:id="@+id/imgBtnStatus4"
@@ -230,8 +244,8 @@
                     android:layout_height="40dp"
                     android:background="@null"
                     android:scaleType="fitCenter"
-                    android:visibility="invisible"
-                    android:src="@mipmap/wrong_sign" />
+                    android:src="@mipmap/wrong_sign"
+                    android:visibility="invisible" />
 
             </LinearLayout>
 

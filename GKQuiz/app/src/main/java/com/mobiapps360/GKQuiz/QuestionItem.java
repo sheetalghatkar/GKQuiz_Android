@@ -6,11 +6,21 @@ public class QuestionItem {
     String question;
     public ArrayList<QuestionOptionModel> arrayOption;
     int answer;
+    boolean isReadOnly;
 
-    public QuestionItem(String question, ArrayList<QuestionOptionModel> arrayOption, int answer) {
+    public boolean isReadOnly() {
+        return isReadOnly;
+    }
+
+    public void setReadOnly(boolean readOnly) {
+        isReadOnly = readOnly;
+    }
+
+    public QuestionItem(String question, ArrayList<QuestionOptionModel> arrayOption, int answer, boolean isReadOnly) {
         this.question = question;
         this.arrayOption = arrayOption;
         this.answer = answer;
+        this.isReadOnly = isReadOnly;
     }
 
     public String getQuestion() {

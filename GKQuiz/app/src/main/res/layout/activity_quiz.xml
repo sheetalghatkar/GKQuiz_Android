@@ -64,7 +64,7 @@
         app:layout_constraintStart_toEndOf="@+id/btnQuizBack"
         app:layout_constraintTop_toTopOf="@+id/btnQuizBack" />
 
-    <com.mobiapps360.GKQuiz.QuizRecycleView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"
         android:background="@android:color/transparent"
         android:layout_width="match_parent"
