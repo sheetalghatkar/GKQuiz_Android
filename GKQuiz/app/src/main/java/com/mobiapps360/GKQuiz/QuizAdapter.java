@@ -235,7 +235,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                             notifyItemChanged(getBindingAdapterPosition());
                             if (questionItemModelTemp.getAnswer() == 0) {
                                 quizActivity.playSoundOptionClick("perfect");
-                                QuizActivity.reloadRecycleView(getBindingAdapterPosition());
+                                quizActivity.reloadRecycleView(getBindingAdapterPosition());
                             } else {
                                 quizActivity.playSoundOptionClick("wrong_ans_sound");
                             }
@@ -290,7 +290,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                             notifyItemChanged(getBindingAdapterPosition());
                             if (questionItemModelTemp.getAnswer() == 1) {
                                 quizActivity.playSoundOptionClick("well_done");
-                                QuizActivity.reloadRecycleView(getBindingAdapterPosition());
+                                quizActivity.reloadRecycleView(getBindingAdapterPosition());
                             } else {
                                 quizActivity.playSoundOptionClick("wrong_ans_sound");
                             }
@@ -344,7 +344,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                             notifyItemChanged(getBindingAdapterPosition());
                             if (questionItemModelTemp.getAnswer() == 2) {
                                 quizActivity.playSoundOptionClick("great_job");
-                                QuizActivity.reloadRecycleView(getBindingAdapterPosition());
+                                quizActivity.reloadRecycleView(getBindingAdapterPosition());
                             } else {
                                 quizActivity.playSoundOptionClick("wrong_ans_sound");
                             }
@@ -403,7 +403,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                                // System.out.println("4 correct-----");
                                // ((Button) v).setTextColor(context.getResources().getColor(R.color.green_ans));
                                 quizActivity.playSoundOptionClick("excellent");
-                                QuizActivity.reloadRecycleView(getBindingAdapterPosition());
+                                quizActivity.reloadRecycleView(getBindingAdapterPosition());
                             } else {
                                // System.out.println("4 false-----");
                             //    ((Button) v).setTextColor(context.getResources().getColor(R.color.red_done));

@@ -19,15 +19,20 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Handler;
@@ -83,12 +88,18 @@ public class QuizActivity extends AppCompatActivity {
     ArrayList<QuestionItem> questionItemModelArray;
     static QuizRecycleView recyclerView;
     static com.mobiapps360.GKQuiz.CircleLayoutManager circleLayoutManager;
-
+    private AdView mAdView;
+    AdRequest adRequest;
+    ImageView imgVwQuizLoader;
+    View viewQuizLoader;
     public static ArrayList<QuestionItem> questionItemDataArray;
+    private InterstitialAd mInterstitialAd;
+    Handler handlerNoConnection;
 
     public static SharedPreferences sharedPreferences = null;
     public static final String myPreferences = "myPref";
     public static final String soundQuizActivity = "soundQuizActivityKey";
+    int clickCount = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,10 +116,14 @@ public class QuizActivity extends AppCompatActivity {
         btnQuizBack = findViewById(R.id.btnQuizBack);
         txtViewQuizTitle = findViewById(R.id.txtViewQuizTitle);
         txtViewQuizTitle.setText(getIntent().getStringExtra("screenTitle"));
+        imgVwQuizLoader = findViewById(R.id.imgVwQuizLoader);
+        viewQuizLoader = findViewById(R.id.viewLoaderQuizBg);
+        Glide.with(this).load(R.drawable.loader).into(imgVwQuizLoader);
         //  ArrayList<QuestionItem>  questionItemDataList =  (ArrayList<QuestionItem>) getIntent().getSerializableExtra("QuizArray");
         //System.out.println("Inside QuizActivity****" + getIntent().getStringExtra("screenTitle"));
 
         questionItemModelArray = Constant.arrayXyz;   //.toArray(questionItemModelArray);
+        handlerNoConnection = new Handler();
 
 
         quizAdapter = new QuizAdapter(this);
@@ -130,14 +145,13 @@ public class QuizActivity extends AppCompatActivity {
 //        System.out.println("My Height : "+ (int) (1080 / Resources.getSystem().getDisplayMetrics().density));
 
 
-       /* Glide.with(this).load(R.drawable.clock_learn).into(imgViewHomeGif);
 
         MobileAds.initialize(getApplicationContext(), new OnInitializationCompleteListener() {
             @Override
             public void onInitializationComplete(InitializationStatus initializationStatus) {
             }
         });
-        mAdView = findViewById(R.id.adViewBannerMainActivity);
+        mAdView = findViewById(R.id.adViewBannerQuizActivity);
         adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
@@ -173,7 +187,7 @@ public class QuizActivity extends AppCompatActivity {
                 // Code to be executed when the user is about to return
                 // to the app after tapping on an ad.
             }
-        });*/
+        });
 
         // System.out.println("Quiz----****" + btnImgHomeSound);
         sharedPreferences = getSharedPreferences(myPreferences, Context.MODE_PRIVATE);
@@ -234,6 +248,7 @@ public class QuizActivity extends AppCompatActivity {
                     }
                     case MotionEvent.ACTION_UP: {
                         ((ImageButton) v).setAlpha((float) 1.0);
+                        handlerNoConnection.removeCallbacksAndMessages(null);
                         QuizActivity.super.onBackPressed();
                     }
                 }
@@ -244,7 +259,7 @@ public class QuizActivity extends AppCompatActivity {
 
     }
 
-    public static void reloadRecycleView(int updatePosition) {
+    void reloadRecycleView(int updatePosition) {
         //System.out.println("updatePosition***" + updatePosition);
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -253,6 +268,11 @@ public class QuizActivity extends AppCompatActivity {
                 try {
                     if (!((Constant.arrayXyz.size() - 1) == updatePosition)) {
                         recyclerView.scrollToPosition(updatePosition + 1);
+                        clickCount = clickCount + 1;
+                        if (clickCount > Constant.showInterstialAdAfterCount) {
+                            clickCount = 0;
+                            showInterstitialAds(false);
+                        }
                     }
                     //  recyclerView.getLayoutManager().smoothScrollToPosition(recyclerView, new RecyclerView.State(), updatePosition+1);
 //                    recyclerView.smoothScrollToPosition(updatePosition+1);
@@ -295,7 +315,11 @@ public class QuizActivity extends AppCompatActivity {
         }
     }
 
-
+    @Override
+    public void onBackPressed() {
+        handlerNoConnection.removeCallbacksAndMessages(null);
+        super.onBackPressed();
+    }
     protected void onRestart() {
         super.onRestart();
     }
@@ -350,6 +374,81 @@ public class QuizActivity extends AppCompatActivity {
         System.out.println("onActivityStopped------");
         if (player != null) {
             player.release();
+        }
+    }
+
+    //Show interstitial Ads
+    public void showHideLoader(boolean adFlag) {
+        if (adFlag) {
+            imgVwQuizLoader.setVisibility(View.VISIBLE);
+            viewQuizLoader.setVisibility(View.VISIBLE);
+        } else {
+            imgVwQuizLoader.setVisibility(View.INVISIBLE);
+            viewQuizLoader.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    public void showInterstitialAds(Boolean fromHome) {
+        System.out.println("Inside showInterstitialAds---");
+        showHideLoader(true);
+        if (isOnline()) {
+            InterstitialAd.load(this, Constant.INTERSTITIAL_ID, adRequest, new InterstitialAdLoadCallback() {
+                @Override
+                public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                    // The mInterstitialAd reference will be null until
+                    // an ad is loaded.
+                    mInterstitialAd = interstitialAd;
+                    mInterstitialAd.show(QuizActivity.this);
+
+                    // Log.i(TAG, "onAdLoaded");
+                    mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                        @Override
+                        public void onAdDismissedFullScreenContent() {
+                            // Called when fullscreen content is dismissed.
+                            Log.i("TAG", "The ad was dismissed.");
+                            if (fromHome) {
+                                Log.i("playCrad", "The ad was dismissed---if");
+                                QuizActivity.super.onBackPressed();
+                                showHideLoader(false);
+                            } else {
+                                Log.i("playCrad", "The ad was dismissed-----else.");
+                                showHideLoader(false);
+                            }
+                        }
+
+                        @Override
+                        public void onAdFailedToShowFullScreenContent(AdError adError) {
+                            // Called when fullscreen content failed to show.
+                            showHideLoader(false);
+                            Log.d("TAG", "The ad failed to show.");
+                        }
+
+                        @Override
+                        public void onAdShowedFullScreenContent() {
+                            //showHideLoader(false);
+                            // Called when fullscreen content is shown.
+                            // Make sure to set your reference to null so you don't
+                            // show it a second time.
+                            mInterstitialAd = null;
+                            // Log.d("TAG", "The ad was shown.");
+                        }
+                    });
+
+                }
+
+                @Override
+                public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                    // Handle the error
+                    showHideLoader(false);
+                    mInterstitialAd = null;
+                }
+            });
+        } else {
+            handlerNoConnection.postDelayed(new Runnable() {
+                public void run() {
+                    showHideLoader(false);
+                }
+            }, Constant.loaderWhenNoInternet);
         }
     }
 }

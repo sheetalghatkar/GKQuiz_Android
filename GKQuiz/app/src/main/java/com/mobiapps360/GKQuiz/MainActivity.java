@@ -51,6 +51,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -88,6 +89,8 @@ public class MainActivity extends AppCompatActivity {
     ImageButton imgBtnSpace;
     ImageButton imgBtnWorldGk;
     ImageButton imgBtnHealth;
+    private AdView mAdView;
+    AdRequest adRequest;
     public static ArrayList<QuestionItem> questionItemDataArray;
     public static ArrayList<QuestionItem> questionItemFinalArray;
 
@@ -141,7 +144,6 @@ public class MainActivity extends AppCompatActivity {
 //        System.out.println("My Height : "+ (int) (1080 / Resources.getSystem().getDisplayMetrics().density));
 
 
-       /* Glide.with(this).load(R.drawable.clock_learn).into(imgViewHomeGif);
 
         MobileAds.initialize(getApplicationContext(), new OnInitializationCompleteListener() {
             @Override
@@ -157,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
             public void onAdLoaded() {
                 // Code to be executed when an ad finishes loading.
                 super.onAdLoaded();
-                // Toast.makeText(MainActivity.this,"ad loaded",Toast.LENGTH_SHORT).show();
+                 Toast.makeText(MainActivity.this,"ad loaded",Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -184,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
                 // Code to be executed when the user is about to return
                 // to the app after tapping on an ad.
             }
-        });*/
+        });
 
 
         sharedPreferences = getSharedPreferences(myPreferences, Context.MODE_PRIVATE);
