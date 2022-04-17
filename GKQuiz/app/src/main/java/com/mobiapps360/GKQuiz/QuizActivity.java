@@ -36,6 +36,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Handler;
+import android.text.Html;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
@@ -95,6 +96,7 @@ public class QuizActivity extends AppCompatActivity {
     public static ArrayList<QuestionItem> questionItemDataArray;
     private InterstitialAd mInterstitialAd;
     Handler handlerNoConnection;
+    int previousIndex = 0;
 
     public static SharedPreferences sharedPreferences = null;
     public static final String myPreferences = "myPref";
@@ -141,8 +143,22 @@ public class QuizActivity extends AppCompatActivity {
 
         recyclerView.setItemAnimator(null);
 
-//        System.out.println("My Width : "+ m_width);
-//        System.out.println("My Height : "+ (int) (1080 / Resources.getSystem().getDisplayMetrics().density));
+        recyclerView
+                .addOnScrollListener(new RecyclerView.OnScrollListener() {
+                    @Override
+                    public void onScrolled(RecyclerView recyclerView,
+                                           int dx, int dy) {
+                        super.onScrolled(recyclerView, dx, dy);
+                        int offset = recyclerView.computeHorizontalScrollOffset();
+                        if (offset % recyclerView.getWidth() == 0) {
+                            int position = offset / recyclerView.getWidth();
+                            System.out.println("position*****"+position);
+//                            int idSwipeImg = getApplicationContext().getResources().getIdentifier("com.mobiapps360.LearnClockTime:raw/swipe", null, null);
+
+                        }
+                    }
+                });
+
 
 
 
@@ -259,15 +275,21 @@ public class QuizActivity extends AppCompatActivity {
 
     }
 
-    void reloadRecycleView(int updatePosition) {
+    void reloadRecycleView(int updatePosition, boolean isShowNextIndex) {
         //System.out.println("updatePosition***" + updatePosition);
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 try {
-                    if (!((Constant.arrayXyz.size() - 1) == updatePosition)) {
-                        recyclerView.scrollToPosition(updatePosition + 1);
+                    if (isShowNextIndex) {
+                        if (!((Constant.arrayXyz.size() - 1) == updatePosition)) {
+                            recyclerView.scrollToPosition(updatePosition + 1);
+                        }
+                    }
+                    if (previousIndex != updatePosition) {
+                        System.out.println("clickCount updated"+clickCount);
+                        previousIndex = updatePosition;
                         clickCount = clickCount + 1;
                         if (clickCount > Constant.showInterstialAdAfterCount) {
                             clickCount = 0;

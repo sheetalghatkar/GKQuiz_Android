@@ -165,10 +165,15 @@ public class CircleLayoutManager extends RecyclerView.LayoutManager{
         }
 
         //different direction child will overlap different way
-        if (dx < 0)
-            layoutItems(recycler, state,SCROLL_LEFT);
-        else
-            layoutItems(recycler,state,SCROLL_RIGHT);
+        if (dx < 0) {
+            layoutItems(recycler, state, SCROLL_LEFT);
+            System.out.println("left-");
+        }else {
+            layoutItems(recycler, state, SCROLL_RIGHT);
+            System.out.println("right-");
+        }
+
+
         return willScroll;
     }
 
@@ -228,7 +233,7 @@ public class CircleLayoutManager extends RecyclerView.LayoutManager{
         }
         final int firstChildPos = getPosition(getChildAt(0));
         final int direction = targetPosition < firstChildPos ? -1 : 1;
-        System.out.println("scrollToPosition---"+direction);
+//        System.out.println("scrollToPosition---"+direction);
         return new PointF(direction, 0);
     }
 
@@ -254,7 +259,6 @@ public class CircleLayoutManager extends RecyclerView.LayoutManager{
 
             @Override
             public PointF computeScrollVectorForPosition(int targetPosition) {
-                System.out.println("####targetPosition####"+targetPosition);
                 return CircleLayoutManager.this.computeScrollVectorForPosition(targetPosition);
             }
             //This returns the milliseconds it takes to
@@ -265,7 +269,6 @@ public class CircleLayoutManager extends RecyclerView.LayoutManager{
 //                return 1000/displayMetrics.densityDpi;
 //            }
         };
-        System.out.println("####inside####"+position);
         smoothScroller.setTargetPosition(position);
         startSmoothScroll(smoothScroller);
     }
@@ -286,6 +289,7 @@ public class CircleLayoutManager extends RecyclerView.LayoutManager{
      * @return Get the current positon of views
      */
     public int getCurrentPosition(){
+        System.out.println("current posistion"+Math.round(offsetRotate / intervalAngle));
         return Math.round(offsetRotate / intervalAngle);
     }
 
