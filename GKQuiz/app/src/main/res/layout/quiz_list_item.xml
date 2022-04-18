@@ -8,17 +8,16 @@
     android:layout_marginRight="10dp"
     android:layout_marginBottom="10dp">
 
-
     <View
         android:id="@+id/viewEmptyOtherApps"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="30dp"
         android:background="@drawable/border_quiz_card"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_2"
@@ -26,7 +25,7 @@
         android:layout_height="0dp"
         android:layout_marginStart="3dp"
         android:layout_marginLeft="3dp"
-        android:layout_marginTop="33dp"
+        android:layout_marginTop="3dp"
         android:layout_marginEnd="3dp"
         android:layout_marginRight="3dp"
         android:layout_marginBottom="3dp"

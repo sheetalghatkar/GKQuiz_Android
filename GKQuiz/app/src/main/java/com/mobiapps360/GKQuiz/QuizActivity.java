@@ -1,6 +1,8 @@
 
 package com.mobiapps360.GKQuiz;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.app.Activity;
@@ -98,11 +100,13 @@ public class QuizActivity extends AppCompatActivity {
     private InterstitialAd mInterstitialAd;
     Handler handlerNoConnection;
     int previousIndex = 0;
+    ImageButton imgBtnReload;
 
     public static SharedPreferences sharedPreferences = null;
     public static final String myPreferences = "myPref";
     public static final String soundQuizActivity = "soundQuizActivityKey";
     int clickCount = 1;
+    boolean isReloadClicked = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,6 +125,7 @@ public class QuizActivity extends AppCompatActivity {
         txtViewQuizTitle.setText(getIntent().getStringExtra("screenTitle"));
         imgVwQuizLoader = findViewById(R.id.imgVwQuizLoader);
         viewQuizLoader = findViewById(R.id.viewLoaderQuizBg);
+        imgBtnReload = findViewById(R.id.imgBtnReload);
         Glide.with(this).load(R.drawable.loader).into(imgVwQuizLoader);
         //  ArrayList<QuestionItem>  questionItemDataList =  (ArrayList<QuestionItem>) getIntent().getSerializableExtra("QuizArray");
         //System.out.println("Inside QuizActivity****" + getIntent().getStringExtra("screenTitle"));
@@ -142,6 +147,42 @@ public class QuizActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         snapHelper.attachToRecyclerView(recyclerView);
         recyclerView.setItemAnimator(null);
+        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener()
+        {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState)
+            {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (isReloadClicked && newState == 0) {
+                    isReloadClicked = false;
+//                    imgBtnReload.setVisibility(View.INVISIBLE);
+                    //Out transition: (alpha from 0.5 to 0)
+                    imgBtnReload.setAlpha(1.0f);
+                    imgBtnReload.animate()
+                            .alpha(0f)
+                            .setDuration(400)
+                            .setListener(new AnimatorListenerAdapter() {
+                                @Override
+                                public void onAnimationEnd(Animator animation) {
+                                    imgBtnReload.setVisibility(View.GONE);
+                                    imgBtnReload.setAlpha(1.0f);
+                                    Glide.with(QuizActivity.this).clear(imgBtnReload);
+                                }
+                            });
+                }
+                System.out.println("onScrollStateChanged****"+newState);
+
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy)
+            {
+                super.onScrolled(recyclerView, dx, dy);
+                // Do my logic
+                System.out.println("onScrolled----"+dx+dy);
+
+            }
+        });
 
         recyclerView
                 .addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -155,7 +196,11 @@ public class QuizActivity extends AppCompatActivity {
 //                            int idSwipeImg = getApplicationContext().getResources().getIdentifier("com.mobiapps360.LearnClockTime:raw/swipe", null, null);
 //                            currentIndex = position;
 
-//                            System.out.println("I m here" + clickCount);
+                            System.out.println("I m here" + position);
+                            if (position == questionItemModelArray.size() - 1) {
+                                imgBtnReload.setImageResource(R.drawable.reload);
+                                imgBtnReload.setVisibility(View.VISIBLE);
+                            }
                             clickCount = clickCount + 1;
                             if (clickCount > Constant.showInterstialAdAfterCount) {
                                 clickCount = 0;
@@ -277,7 +322,25 @@ public class QuizActivity extends AppCompatActivity {
             }
         });
         //------------------------------------------
-
+        imgBtnReload.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                isReloadClicked = true;
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        ((ImageButton) v).setAlpha((float) 0.5);
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP: {
+                        ((ImageButton) v).setAlpha((float) 1.0);
+                        Glide.with(QuizActivity.this).load(R.drawable.reload).into(imgBtnReload);
+                        recyclerView.smoothScrollToPosition(0);
+                    }
+                }
+                return true;
+            }
+        });
+        //------------------------------------------
     }
 
     void reloadRecycleView(int updatePosition, boolean isShowNextIndex) {

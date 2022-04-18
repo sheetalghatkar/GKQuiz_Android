@@ -68,10 +68,26 @@
         android:id="@+id/recycler"
         android:background="@android:color/transparent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="100dp"
-        android:layout_marginBottom="100dp"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
         app:layout_constraintTop_toBottomOf="@+id/txtViewQuizTitle"/>
+
+    <ImageButton
+        android:id="@+id/imgBtnReload"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:paddingRight="3dp"
+        android:paddingLeft="3dp"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:background="@drawable/border_reload_button"
+        android:scaleType="fitCenter"
+        android:src="@drawable/reload"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recycler"/>
+
 
     <View
         android:id="@+id/viewLoaderQuizBg"
@@ -83,6 +99,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
 
     <ImageView
