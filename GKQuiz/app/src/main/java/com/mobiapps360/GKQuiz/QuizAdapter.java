@@ -127,6 +127,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
         if (listQuestionOptions.size() > 2) {
             holder.imgViewD.setVisibility(View.VISIBLE);
             holder.btnOption3.setVisibility(View.VISIBLE);
+            holder.linearLayout3.setVisibility(View.VISIBLE);
             if ((listQuestionOptions.get(2).getOptionStatus()) == -1) {
                 holder.imgBtnStatus3.setVisibility(View.INVISIBLE);
             } else {
@@ -136,12 +137,14 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
             holder.imgBtnStatus3.setVisibility(View.INVISIBLE);
             holder.imgViewC.setVisibility(View.INVISIBLE);
             holder.btnOption3.setVisibility(View.INVISIBLE);
+            holder.linearLayout3.setVisibility(View.INVISIBLE);
         }
 
         //To check whether 4 option is available or not
         if (listQuestionOptions.size() > 3) {
             holder.imgViewD.setVisibility(View.VISIBLE);
             holder.btnOption4.setVisibility(View.VISIBLE);
+            holder.linearLayout4.setVisibility(View.VISIBLE);
             if ((listQuestionOptions.get(3).getOptionStatus()) == -1) {
                 holder.imgBtnStatus4.setVisibility(View.INVISIBLE);
             } else {
@@ -157,6 +160,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
             holder.imgBtnStatus4.setVisibility(View.INVISIBLE);
             holder.imgViewD.setVisibility(View.INVISIBLE);
             holder.btnOption4.setVisibility(View.INVISIBLE);
+            holder.linearLayout4.setVisibility(View.INVISIBLE);
         }
 
 
