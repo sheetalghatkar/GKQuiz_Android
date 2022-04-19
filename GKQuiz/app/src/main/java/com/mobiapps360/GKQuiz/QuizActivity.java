@@ -134,8 +134,6 @@ public class QuizActivity extends AppCompatActivity {
         handlerNoConnection = new Handler();
 
 
-
-
         recyclerView = findViewById(R.id.recycler);
 
         quizAdapter = new QuizAdapter(this);
@@ -147,11 +145,9 @@ public class QuizActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         snapHelper.attachToRecyclerView(recyclerView);
         recyclerView.setItemAnimator(null);
-        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener()
-        {
+        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState)
-            {
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 if (isReloadClicked && newState == 0) {
                     isReloadClicked = false;
@@ -170,16 +166,15 @@ public class QuizActivity extends AppCompatActivity {
                                 }
                             });
                 }
-                System.out.println("onScrollStateChanged****"+newState);
+                // System.out.println("onScrollStateChanged****"+newState);
 
             }
 
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy)
-            {
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 // Do my logic
-                System.out.println("onScrolled----"+dx+dy);
+                //  System.out.println("onScrolled----"+dx+dy);
 
             }
         });
@@ -196,12 +191,13 @@ public class QuizActivity extends AppCompatActivity {
 //                            int idSwipeImg = getApplicationContext().getResources().getIdentifier("com.mobiapps360.LearnClockTime:raw/swipe", null, null);
 //                            currentIndex = position;
 
-                            System.out.println("I m here" + position);
                             if (position == questionItemModelArray.size() - 1) {
                                 imgBtnReload.setImageResource(R.drawable.reload);
                                 imgBtnReload.setVisibility(View.VISIBLE);
                             }
                             clickCount = clickCount + 1;
+                            System.out.println("I m clickCount********" + clickCount);
+
                             if (clickCount > Constant.showInterstialAdAfterCount) {
                                 clickCount = 0;
                                 showInterstitialAds(false);
@@ -209,7 +205,6 @@ public class QuizActivity extends AppCompatActivity {
                         }
                     }
                 });
-
 
 
         MobileAds.initialize(getApplicationContext(), new OnInitializationCompleteListener() {
@@ -233,7 +228,7 @@ public class QuizActivity extends AppCompatActivity {
             public void onAdFailedToLoad(LoadAdError adError) {
                 // Code to be executed when an ad request fails.
                 super.onAdFailedToLoad(adError);
-                System.out.println("Show error####"+adError);
+                System.out.println("Show error####" + adError);
                 mAdView.loadAd(adRequest);
             }
 
@@ -345,6 +340,11 @@ public class QuizActivity extends AppCompatActivity {
 
     void reloadRecycleView(int updatePosition, boolean isShowNextIndex) {
         //System.out.println("updatePosition***" + updatePosition);
+        int delayToShowNext = 600;
+        if (MainActivity.sharedPreferences.getBoolean(soundQuizActivity, true)) {
+            delayToShowNext = 1500;
+        }
+
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -364,7 +364,7 @@ public class QuizActivity extends AppCompatActivity {
 
                 }
             }
-        }, 1500);
+        }, delayToShowNext);
     }
 
     void playSoundOptionClick(String soundName) {
@@ -401,6 +401,7 @@ public class QuizActivity extends AppCompatActivity {
         handlerNoConnection.removeCallbacksAndMessages(null);
         super.onBackPressed();
     }
+
     protected void onRestart() {
         super.onRestart();
     }

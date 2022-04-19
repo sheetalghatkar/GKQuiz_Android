@@ -81,7 +81,7 @@
 
             <LinearLayout
                 android:id="@+id/linearLayout1"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
                 android:clickable="true"
@@ -121,13 +121,18 @@
                     android:src="@mipmap/wrong_sign"
                     android:visibility="invisible" />
 
+                <View
+                    android:layout_width="60dp"
+                    android:layout_height="15dp"
+                    android:layout_weight="1"></View>
+
 
             </LinearLayout>
 
 
             <LinearLayout
                 android:id="@+id/linearLayout2"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:clickable="true"
@@ -166,11 +171,16 @@
                     android:scaleType="fitCenter"
                     android:src="@mipmap/wrong_sign"
                     android:visibility="invisible" />
+
+                <View
+                    android:layout_width="60dp"
+                    android:layout_height="15dp"
+                    android:layout_weight="1"></View>
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/linearLayout3"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:clickable="true"
@@ -210,13 +220,19 @@
                     android:src="@mipmap/wrong_sign"
                     android:visibility="invisible" />
 
+                <View
+                    android:layout_width="60dp"
+                    android:layout_height="15dp"
+                    android:layout_weight="1"></View>
+
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/linearLayout4"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:layout_marginRight="100dp"
                 android:clickable="true"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -235,9 +251,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
+                    android:clickable="false"
                     android:fontFamily="sans-serif-black"
                     android:gravity="left|center_vertical"
-                    android:clickable="false"
                     android:letterSpacing="0.0"
                     android:maxWidth="250dp"
                     android:textAllCaps="false"
@@ -253,6 +269,11 @@
                     android:scaleType="fitCenter"
                     android:src="@mipmap/wrong_sign"
                     android:visibility="invisible" />
+
+                <View
+                    android:layout_width="60dp"
+                    android:layout_height="15dp"
+                    android:layout_weight="1" />
 
             </LinearLayout>
 

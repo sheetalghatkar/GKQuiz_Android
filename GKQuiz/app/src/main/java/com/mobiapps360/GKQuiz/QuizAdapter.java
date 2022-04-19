@@ -256,7 +256,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                             }
                             QuestionItem questionItemModelTemp;
                             questionItemModelTemp = listQuestionItem.get(getBindingAdapterPosition());
-                            System.out.println("--1st clicked-" + questionItemModelTemp.getQuestion() + "status" + questionItemModelTemp.getAnswer());
+                          //  System.out.println("--1st clicked-" + questionItemModelTemp.getQuestion() + "status" + questionItemModelTemp.getAnswer());
                             ArrayList<QuestionOptionModel> listQuestionOptionsTemp;
                             listQuestionOptionsTemp = questionItemModelTemp.getArrayOption();
                             QuestionOptionModel questionOptionModel1 = new QuestionOptionModel(listQuestionOptionsTemp.get(0).getOptionStr(), setOptionStatus);
@@ -319,7 +319,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
 
                             QuestionItem questionItemModelTemp;
                             questionItemModelTemp = listQuestionItem.get(getBindingAdapterPosition());
-                            System.out.println("--2nd clicked-" + questionItemModelTemp.getQuestion() + "status" + questionItemModelTemp.getAnswer());
+                           // System.out.println("--2nd clicked-" + questionItemModelTemp.getQuestion() + "status" + questionItemModelTemp.getAnswer());
                             ArrayList<QuestionOptionModel> listQuestionOptionsTemp;
                             listQuestionOptionsTemp = questionItemModelTemp.getArrayOption();
                             QuestionOptionModel questionOptionModel1 = new QuestionOptionModel(listQuestionOptionsTemp.get(1).getOptionStr(), setOptionStatus);
@@ -381,7 +381,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                             }
                             QuestionItem questionItemModelTemp;
                             questionItemModelTemp = listQuestionItem.get(getBindingAdapterPosition());
-                            System.out.println("--3rd clicked-" + questionItemModelTemp.getQuestion() + "status" + questionItemModelTemp.getAnswer());
+                          //  System.out.println("--3rd clicked-" + questionItemModelTemp.getQuestion() + "status" + questionItemModelTemp.getAnswer());
                             ArrayList<QuestionOptionModel> listQuestionOptionsTemp;
                             listQuestionOptionsTemp = questionItemModelTemp.getArrayOption();
                             QuestionOptionModel questionOptionModel1 = new QuestionOptionModel(listQuestionOptionsTemp.get(2).getOptionStr(), setOptionStatus);
@@ -443,7 +443,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                             }
                             QuestionItem questionItemModelTemp;
                             questionItemModelTemp = listQuestionItem.get(getBindingAdapterPosition());
-                            System.out.println("--4th clicked-" + questionItemModelTemp.getQuestion() + "status" + questionItemModelTemp.getAnswer());
+                          //  System.out.println("--4th clicked-" + questionItemModelTemp.getQuestion() + "status" + questionItemModelTemp.getAnswer());
 
                             ArrayList<QuestionOptionModel> listQuestionOptionsTemp;
                             listQuestionOptionsTemp = questionItemModelTemp.getArrayOption();
@@ -514,7 +514,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                             }
                             QuestionItem questionItemModelTemp;
                             questionItemModelTemp = listQuestionItem.get(getBindingAdapterPosition());
-                            System.out.println("--1st clicked-" + questionItemModelTemp.getQuestion() + "status" + questionItemModelTemp.getAnswer());
+                           // System.out.println("--1st clicked-" + questionItemModelTemp.getQuestion() + "status" + questionItemModelTemp.getAnswer());
                             ArrayList<QuestionOptionModel> listQuestionOptionsTemp;
                             listQuestionOptionsTemp = questionItemModelTemp.getArrayOption();
                             QuestionOptionModel questionOptionModel1 = new QuestionOptionModel(listQuestionOptionsTemp.get(0).getOptionStr(), setOptionStatus);
@@ -577,7 +577,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
 
                             QuestionItem questionItemModelTemp;
                             questionItemModelTemp = listQuestionItem.get(getBindingAdapterPosition());
-                            System.out.println("--2nd clicked-" + questionItemModelTemp.getQuestion() + "status" + questionItemModelTemp.getAnswer());
+                        //    System.out.println("--2nd clicked-" + questionItemModelTemp.getQuestion() + "status" + questionItemModelTemp.getAnswer());
                             ArrayList<QuestionOptionModel> listQuestionOptionsTemp;
                             listQuestionOptionsTemp = questionItemModelTemp.getArrayOption();
                             QuestionOptionModel questionOptionModel1 = new QuestionOptionModel(listQuestionOptionsTemp.get(1).getOptionStr(), setOptionStatus);
@@ -639,7 +639,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                             }
                             QuestionItem questionItemModelTemp;
                             questionItemModelTemp = listQuestionItem.get(getBindingAdapterPosition());
-                            System.out.println("--3rd clicked-" + questionItemModelTemp.getQuestion() + "status" + questionItemModelTemp.getAnswer());
+                         //   System.out.println("--3rd clicked-" + questionItemModelTemp.getQuestion() + "status" + questionItemModelTemp.getAnswer());
                             ArrayList<QuestionOptionModel> listQuestionOptionsTemp;
                             listQuestionOptionsTemp = questionItemModelTemp.getArrayOption();
                             QuestionOptionModel questionOptionModel1 = new QuestionOptionModel(listQuestionOptionsTemp.get(2).getOptionStr(), setOptionStatus);
@@ -701,7 +701,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                             }
                             QuestionItem questionItemModelTemp;
                             questionItemModelTemp = listQuestionItem.get(getBindingAdapterPosition());
-                            System.out.println("--4th clicked-" + questionItemModelTemp.getQuestion() + "status" + questionItemModelTemp.getAnswer());
+                           // System.out.println("--4th clicked-" + questionItemModelTemp.getQuestion() + "status" + questionItemModelTemp.getAnswer());
 
                             ArrayList<QuestionOptionModel> listQuestionOptionsTemp;
                             listQuestionOptionsTemp = questionItemModelTemp.getArrayOption();
