@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -186,6 +187,11 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
 
         TextView quizCardNumber;
 
+        LinearLayout linearLayout1;
+        LinearLayout linearLayout2;
+        LinearLayout linearLayout3;
+        LinearLayout linearLayout4;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -205,6 +211,11 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
             this.imgViewC = itemView.findViewById(R.id.imgViewC);
             this.imgViewD = itemView.findViewById(R.id.imgViewD);
 
+            this.linearLayout1 = itemView.findViewById(R.id.linearLayout1);
+            this.linearLayout2 = itemView.findViewById(R.id.linearLayout2);
+            this.linearLayout3 = itemView.findViewById(R.id.linearLayout3);
+            this.linearLayout4 = itemView.findViewById(R.id.linearLayout4);
+
             this.quizCardNumber = itemView.findViewById(R.id.quizCardNumber);
             //------------------------------------------
 
@@ -212,14 +223,14 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
             //------------------------------------------
 
 
-            btnOption1.setOnTouchListener(new View.OnTouchListener() {
+            linearLayout1.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
 //                    System.out.println("Basic Gk clicked.");
                     imgBtnStatus1.setVisibility(View.VISIBLE);
                     switch (event.getAction()) {
                         case MotionEvent.ACTION_DOWN: {
-                            ((Button) v).setAlpha((float) 0.5);
+                            btnOption1.setAlpha((float) 0.5);
                             imgBtnStatus1.setAlpha((float) 0.5);
                             handler = new Handler();
                             handler.postDelayed(new Runnable() {
@@ -237,7 +248,265 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                         }
                         case MotionEvent.ACTION_UP: {
                             handler.removeCallbacksAndMessages(null);
-                            ((Button) v).setAlpha((float) 1.0);
+                            btnOption1.setAlpha((float) 1.0);
+                            imgBtnStatus1.setAlpha((float) 1.0);
+                            int setOptionStatus = 0;
+                            if (questionItemModel.getAnswer() == 0) {
+                                setOptionStatus = 1;
+                            }
+                            QuestionItem questionItemModelTemp;
+                            questionItemModelTemp = listQuestionItem.get(getBindingAdapterPosition());
+                            System.out.println("--1st clicked-" + questionItemModelTemp.getQuestion() + "status" + questionItemModelTemp.getAnswer());
+                            ArrayList<QuestionOptionModel> listQuestionOptionsTemp;
+                            listQuestionOptionsTemp = questionItemModelTemp.getArrayOption();
+                            QuestionOptionModel questionOptionModel1 = new QuestionOptionModel(listQuestionOptionsTemp.get(0).getOptionStr(), setOptionStatus);
+                            listQuestionOptionsTemp.set(0, questionOptionModel1);
+                            questionItemModelTemp.setArrayOption(listQuestionOptionsTemp);
+                            if (questionItemModelTemp.getAnswer() == 0) {
+                                questionItemModelTemp.setReadOnly(true);
+                            }
+                            listQuestionItem.set(getBindingAdapterPosition(), questionItemModelTemp);
+                            Constant.arrayXyz.set(getBindingAdapterPosition(), questionItemModelTemp);
+                            notifyItemChanged(getBindingAdapterPosition());
+                            if (questionItemModelTemp.getAnswer() == 0) {
+                                btnOption1.setEnabled(false);
+                                btnOption2.setEnabled(false);
+                                btnOption3.setEnabled(false);
+                                btnOption4.setEnabled(false);
+                                quizActivity.playSoundOptionClick("perfect");
+                                quizActivity.reloadRecycleView(getBindingAdapterPosition(), true);
+                            } else {
+                                quizActivity.playSoundOptionClick("wrong_ans_sound");
+                                quizActivity.reloadRecycleView(getBindingAdapterPosition(), false);
+                            }
+                        }
+                    }
+                    return true;
+                }
+            });
+
+            linearLayout2.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+//                    System.out.println("Basic Gk clicked.");
+                    imgBtnStatus2.setVisibility(View.VISIBLE);
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN: {
+                            btnOption2.setAlpha((float) 0.5);
+                            imgBtnStatus2.setAlpha((float) 0.5);
+                            handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    try {
+                                        btnOption2.setAlpha((float) 1.0);
+                                        imgBtnStatus2.setAlpha((float) 1.0);
+                                    } catch (Exception e) {
+
+                                    }
+                                }
+                            }, 500);
+                            break;
+                        }
+                        case MotionEvent.ACTION_UP: {
+                            handler.removeCallbacksAndMessages(null);
+                            btnOption2.setAlpha((float) 1.0);
+                            imgBtnStatus2.setAlpha((float) 1.0);
+                            int setOptionStatus = 0;
+                            if (questionItemModel.getAnswer() == 1) {
+                                setOptionStatus = 1;
+                            }
+
+                            QuestionItem questionItemModelTemp;
+                            questionItemModelTemp = listQuestionItem.get(getBindingAdapterPosition());
+                            System.out.println("--2nd clicked-" + questionItemModelTemp.getQuestion() + "status" + questionItemModelTemp.getAnswer());
+                            ArrayList<QuestionOptionModel> listQuestionOptionsTemp;
+                            listQuestionOptionsTemp = questionItemModelTemp.getArrayOption();
+                            QuestionOptionModel questionOptionModel1 = new QuestionOptionModel(listQuestionOptionsTemp.get(1).getOptionStr(), setOptionStatus);
+                            listQuestionOptionsTemp.set(1, questionOptionModel1);
+                            questionItemModelTemp.setArrayOption(listQuestionOptionsTemp);
+                            if (questionItemModelTemp.getAnswer() == 1) {
+                                questionItemModelTemp.setReadOnly(true);
+                            }
+                            listQuestionItem.set(getBindingAdapterPosition(), questionItemModelTemp);
+                            Constant.arrayXyz.set(getBindingAdapterPosition(), questionItemModelTemp);
+                            notifyItemChanged(getBindingAdapterPosition());
+                            if (questionItemModelTemp.getAnswer() == 1) {
+                                btnOption1.setEnabled(false);
+                                btnOption2.setEnabled(false);
+                                btnOption3.setEnabled(false);
+                                btnOption4.setEnabled(false);
+                                quizActivity.playSoundOptionClick("well_done");
+                                quizActivity.reloadRecycleView(getBindingAdapterPosition(), true);
+                            } else {
+                                quizActivity.playSoundOptionClick("wrong_ans_sound");
+                                quizActivity.reloadRecycleView(getBindingAdapterPosition(), false);
+                            }
+                        }
+                    }
+                    return true;
+                }
+            });
+
+            linearLayout3.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+//                    System.out.println("Basic Gk clicked.");
+                    imgBtnStatus3.setVisibility(View.VISIBLE);
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN: {
+                            btnOption3.setAlpha((float) 0.5);
+                            imgBtnStatus3.setAlpha((float) 0.5);
+                            handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    try {
+                                        btnOption3.setAlpha((float) 1.0);
+                                        imgBtnStatus3.setAlpha((float) 1.0);
+                                    } catch (Exception e) {
+
+                                    }
+                                }
+                            }, 500);
+                            break;
+                        }
+                        case MotionEvent.ACTION_UP: {
+                            handler.removeCallbacksAndMessages(null);
+                            btnOption3.setAlpha((float) 1.0);
+                            imgBtnStatus3.setAlpha((float) 1.0);
+                            int setOptionStatus = 0;
+                            if (questionItemModel.getAnswer() == 2) {
+                                setOptionStatus = 1;
+                            }
+                            QuestionItem questionItemModelTemp;
+                            questionItemModelTemp = listQuestionItem.get(getBindingAdapterPosition());
+                            System.out.println("--3rd clicked-" + questionItemModelTemp.getQuestion() + "status" + questionItemModelTemp.getAnswer());
+                            ArrayList<QuestionOptionModel> listQuestionOptionsTemp;
+                            listQuestionOptionsTemp = questionItemModelTemp.getArrayOption();
+                            QuestionOptionModel questionOptionModel1 = new QuestionOptionModel(listQuestionOptionsTemp.get(2).getOptionStr(), setOptionStatus);
+                            listQuestionOptionsTemp.set(2, questionOptionModel1);
+                            questionItemModelTemp.setArrayOption(listQuestionOptionsTemp);
+                            listQuestionItem.set(getBindingAdapterPosition(), questionItemModelTemp);
+                            if (questionItemModelTemp.getAnswer() == 2) {
+                                questionItemModelTemp.setReadOnly(true);
+                            }
+                            Constant.arrayXyz.set(getBindingAdapterPosition(), questionItemModelTemp);
+                            notifyItemChanged(getBindingAdapterPosition());
+                            if (questionItemModelTemp.getAnswer() == 2) {
+                                btnOption1.setEnabled(false);
+                                btnOption2.setEnabled(false);
+                                btnOption3.setEnabled(false);
+                                btnOption4.setEnabled(false);
+                                quizActivity.playSoundOptionClick("great_job");
+                                quizActivity.reloadRecycleView(getBindingAdapterPosition(), true);
+                            } else {
+                                quizActivity.playSoundOptionClick("wrong_ans_sound");
+                                quizActivity.reloadRecycleView(getBindingAdapterPosition(), false);
+                            }
+                        }
+                    }
+                    return true;
+                }
+            });
+
+            linearLayout4.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+//                    System.out.println("Basic Gk clicked.");
+                    imgBtnStatus4.setVisibility(View.VISIBLE);
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN: {
+                            btnOption4.setAlpha((float) 0.5);
+                            imgBtnStatus4.setAlpha((float) 0.5);
+                            handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    try {
+                                        btnOption4.setAlpha((float) 1.0);
+                                        imgBtnStatus4.setAlpha((float) 1.0);
+                                    } catch (Exception e) {
+
+                                    }
+                                }
+                            }, 500);
+                            break;
+                        }
+                        case MotionEvent.ACTION_UP: {
+                            handler.removeCallbacksAndMessages(null);
+                            btnOption4.setAlpha((float) 1.0);
+                            imgBtnStatus4.setAlpha((float) 1.0);
+                            int setOptionStatus = 0;
+                            if (questionItemModel.getAnswer() == 3) {
+                                setOptionStatus = 1;
+                            }
+                            QuestionItem questionItemModelTemp;
+                            questionItemModelTemp = listQuestionItem.get(getBindingAdapterPosition());
+                            System.out.println("--4th clicked-" + questionItemModelTemp.getQuestion() + "status" + questionItemModelTemp.getAnswer());
+
+                            ArrayList<QuestionOptionModel> listQuestionOptionsTemp;
+                            listQuestionOptionsTemp = questionItemModelTemp.getArrayOption();
+
+                            QuestionOptionModel questionOptionModel1 = new QuestionOptionModel(listQuestionOptionsTemp.get(3).getOptionStr(), setOptionStatus);
+                            listQuestionOptionsTemp.set(3, questionOptionModel1);
+
+                            questionItemModelTemp.setArrayOption(listQuestionOptionsTemp);
+                            if (questionItemModelTemp.getAnswer() == 3) {
+                                questionItemModelTemp.setReadOnly(true);
+                            }
+                            listQuestionItem.set(getBindingAdapterPosition(), questionItemModelTemp);
+                            Constant.arrayXyz.set(getBindingAdapterPosition(), questionItemModelTemp);
+                            notifyItemChanged(getBindingAdapterPosition());
+                            if (questionItemModelTemp.getAnswer() == 3) {
+                                // System.out.println("4 correct-----");
+                                // ((Button) v).setTextColor(context.getResources().getColor(R.color.green_ans));
+                                btnOption1.setEnabled(false);
+                                btnOption2.setEnabled(false);
+                                btnOption3.setEnabled(false);
+                                btnOption4.setEnabled(false);
+                                quizActivity.playSoundOptionClick("excellent");
+                                quizActivity.reloadRecycleView(getBindingAdapterPosition(), true);
+                            } else {
+                                // System.out.println("4 false-----");
+                                //  ((Button) v).setTextColor(context.getResources().getColor(R.color.red_done));
+                                quizActivity.playSoundOptionClick("wrong_ans_sound");
+                                quizActivity.reloadRecycleView(getBindingAdapterPosition(), false);
+                            }
+                        }
+                    }
+                    return true;
+                }
+            });
+
+            //On click text view
+
+            btnOption1.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+//                    System.out.println("Basic Gk clicked.");
+                    imgBtnStatus1.setVisibility(View.VISIBLE);
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN: {
+                            btnOption1.setAlpha((float) 0.5);
+                            imgBtnStatus1.setAlpha((float) 0.5);
+                            handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    try {
+                                        btnOption1.setAlpha((float) 1.0);
+                                        imgBtnStatus1.setAlpha((float) 1.0);
+                                    } catch (Exception e) {
+
+                                    }
+                                }
+                            }, 500);
+                            break;
+                        }
+                        case MotionEvent.ACTION_UP: {
+                            handler.removeCallbacksAndMessages(null);
+                            btnOption1.setAlpha((float) 1.0);
                             imgBtnStatus1.setAlpha((float) 1.0);
                             int setOptionStatus = 0;
                             if (questionItemModel.getAnswer() == 0) {
@@ -281,7 +550,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                     imgBtnStatus2.setVisibility(View.VISIBLE);
                     switch (event.getAction()) {
                         case MotionEvent.ACTION_DOWN: {
-                            ((Button) v).setAlpha((float) 0.5);
+                            btnOption2.setAlpha((float) 0.5);
                             imgBtnStatus2.setAlpha((float) 0.5);
                             handler = new Handler();
                             handler.postDelayed(new Runnable() {
@@ -299,7 +568,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                         }
                         case MotionEvent.ACTION_UP: {
                             handler.removeCallbacksAndMessages(null);
-                            ((Button) v).setAlpha((float) 1.0);
+                            btnOption2.setAlpha((float) 1.0);
                             imgBtnStatus2.setAlpha((float) 1.0);
                             int setOptionStatus = 0;
                             if (questionItemModel.getAnswer() == 1) {
@@ -344,7 +613,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                     imgBtnStatus3.setVisibility(View.VISIBLE);
                     switch (event.getAction()) {
                         case MotionEvent.ACTION_DOWN: {
-                            ((Button) v).setAlpha((float) 0.5);
+                            btnOption3.setAlpha((float) 0.5);
                             imgBtnStatus3.setAlpha((float) 0.5);
                             handler = new Handler();
                             handler.postDelayed(new Runnable() {
@@ -362,7 +631,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                         }
                         case MotionEvent.ACTION_UP: {
                             handler.removeCallbacksAndMessages(null);
-                            ((Button) v).setAlpha((float) 1.0);
+                            btnOption3.setAlpha((float) 1.0);
                             imgBtnStatus3.setAlpha((float) 1.0);
                             int setOptionStatus = 0;
                             if (questionItemModel.getAnswer() == 2) {
@@ -406,7 +675,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                     imgBtnStatus4.setVisibility(View.VISIBLE);
                     switch (event.getAction()) {
                         case MotionEvent.ACTION_DOWN: {
-                            ((Button) v).setAlpha((float) 0.5);
+                            btnOption4.setAlpha((float) 0.5);
                             imgBtnStatus4.setAlpha((float) 0.5);
                             handler = new Handler();
                             handler.postDelayed(new Runnable() {
@@ -424,7 +693,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                         }
                         case MotionEvent.ACTION_UP: {
                             handler.removeCallbacksAndMessages(null);
-                            ((Button) v).setAlpha((float) 1.0);
+                            btnOption4.setAlpha((float) 1.0);
                             imgBtnStatus4.setAlpha((float) 1.0);
                             int setOptionStatus = 0;
                             if (questionItemModel.getAnswer() == 3) {
@@ -467,138 +736,6 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                     return true;
                 }
             });
-
-          /*  imgBtnStatus1.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    System.out.println("Basic Gk clicked.");
-                    switch (event.getAction()) {
-                        case MotionEvent.ACTION_DOWN: {
-                            ((ImageButton) v).setAlpha((float) 0.5);
-                            btnOption1.setAlpha((float) 0.5);
-                            break;
-                        }
-                        case MotionEvent.ACTION_UP: {
-                            ((ImageButton) v).setAlpha((float) 1.0);
-                            btnOption1.setAlpha((float) 1.0);
-                            imgBtnStatus1.setVisibility(View.VISIBLE);
-                            int setOptionStatus = 0;
-                            if (questionItemModel.getAnswer() == 0) {
-                                setOptionStatus = 1;
-                            }
-                            QuestionItem questionItemModelTemp;
-                            questionItemModelTemp = listQuestionItem.get(getBindingAdapterPosition());
-                            ArrayList<QuestionOptionModel> listQuestionOptionsTemp ;
-                            listQuestionOptionsTemp = questionItemModelTemp.getArrayOption();
-                            QuestionOptionModel questionOptionModel1 = new QuestionOptionModel(listQuestionOptionsTemp.get(0).getOptionStr(), setOptionStatus);
-                            listQuestionOptionsTemp.set(0, questionOptionModel1);
-                            questionItemModelTemp.setArrayOption(listQuestionOptionsTemp);
-                            listQuestionItem.set(getBindingAdapterPosition(), questionItemModelTemp);
-                        }
-                    }
-                    return true;
-                }
-            });
-
-            imgBtnStatus2.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    System.out.println("Basic Gk clicked.");
-                    switch (event.getAction()) {
-                        case MotionEvent.ACTION_DOWN: {
-                            ((ImageButton) v).setAlpha((float) 0.5);
-                            btnOption2.setAlpha((float) 0.5);
-                            break;
-                        }
-                        case MotionEvent.ACTION_UP: {
-                            ((ImageButton) v).setAlpha((float) 1.0);
-                            btnOption2.setAlpha((float) 1.0);
-                            imgBtnStatus2.setVisibility(View.VISIBLE);
-                            int setOptionStatus = 0;
-                            if (questionItemModel.getAnswer() == 1) {
-                                setOptionStatus = 1;
-                            }
-                            QuestionItem questionItemModelTemp;
-                            questionItemModelTemp = listQuestionItem.get(getBindingAdapterPosition());
-                            ArrayList<QuestionOptionModel> listQuestionOptionsTemp ;
-                            listQuestionOptionsTemp = questionItemModelTemp.getArrayOption();
-                            QuestionOptionModel questionOptionModel1 = new QuestionOptionModel(listQuestionOptionsTemp.get(1).getOptionStr(), setOptionStatus);
-                            listQuestionOptionsTemp.set(1, questionOptionModel1);
-                            questionItemModelTemp.setArrayOption(listQuestionOptionsTemp);
-                            listQuestionItem.set(getBindingAdapterPosition(), questionItemModelTemp);
-                        }
-                    }
-                    return true;
-                }
-            });
-
-            imgBtnStatus3.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    System.out.println("Basic Gk clicked.");
-                    switch (event.getAction()) {
-                        case MotionEvent.ACTION_DOWN: {
-                            ((ImageButton) v).setAlpha((float) 0.5);
-                            btnOption3.setAlpha((float) 0.5);
-                            break;
-                        }
-                        case MotionEvent.ACTION_UP: {
-                            ((ImageButton) v).setAlpha((float) 1.0);
-                            btnOption3.setAlpha((float) 1.0);
-                            imgBtnStatus3.setVisibility(View.VISIBLE);
-                            int setOptionStatus = 0;
-                            if (questionItemModel.getAnswer() == 2) {
-                                setOptionStatus = 1;
-                            }
-                            QuestionItem questionItemModelTemp;
-                            questionItemModelTemp = listQuestionItem.get(getBindingAdapterPosition());
-                            ArrayList<QuestionOptionModel> listQuestionOptionsTemp ;
-                            listQuestionOptionsTemp = questionItemModelTemp.getArrayOption();
-                            QuestionOptionModel questionOptionModel1 = new QuestionOptionModel(listQuestionOptionsTemp.get(2).getOptionStr(), setOptionStatus);
-                            listQuestionOptionsTemp.set(2, questionOptionModel1);
-                            questionItemModelTemp.setArrayOption(listQuestionOptionsTemp);
-                            listQuestionItem.set(getBindingAdapterPosition(), questionItemModelTemp);
-                        }
-                    }
-                    return true;
-                }
-            });
-
-            imgBtnStatus4.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    System.out.println("Basic Gk clicked.");
-                    switch (event.getAction()) {
-                        case MotionEvent.ACTION_DOWN: {
-                            ((ImageButton) v).setAlpha((float) 0.5);
-                            btnOption4.setAlpha((float) 0.5);
-                            break;
-                        }
-                        case MotionEvent.ACTION_UP: {
-                            ((ImageButton) v).setAlpha((float) 1.0);
-                            btnOption4.setAlpha((float) 1.0);
-                            imgBtnStatus4.setVisibility(View.VISIBLE);
-                            int setOptionStatus = 0;
-                            if (questionItemModel.getAnswer() == 3) {
-                                setOptionStatus = 1;
-                            }
-                            QuestionItem questionItemModelTemp;
-                            questionItemModelTemp = listQuestionItem.get(getBindingAdapterPosition());
-
-                            ArrayList<QuestionOptionModel> listQuestionOptionsTemp ;
-                            listQuestionOptionsTemp = questionItemModelTemp.getArrayOption();
-
-                            QuestionOptionModel questionOptionModel1 = new QuestionOptionModel(listQuestionOptionsTemp.get(3).getOptionStr(), setOptionStatus);
-                            listQuestionOptionsTemp.set(3, questionOptionModel1);
-
-                            questionItemModelTemp.setArrayOption(listQuestionOptionsTemp);
-                            listQuestionItem.set(getBindingAdapterPosition(), questionItemModelTemp);
-                        }
-                    }
-                    return true;
-                }
-            });*/
         }
     }
 }
-
