@@ -17,8 +17,6 @@
         <activity android:name="com.mobiapps360.GKQuiz.QuizActivity" />
 
 
-
-
         <activity
             android:name=".MainActivity"
             android:exported="true">

@@ -61,7 +61,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="10dp"
-        android:background="@drawable/border_learn_view"
+        android:background="@drawable/border_quiz_card"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txtTitlePrivacyPolicy"
         app:layout_constraintBottom_toBottomOf="parent"
