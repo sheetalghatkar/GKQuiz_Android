@@ -94,6 +94,8 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList<QuestionItem> questionItemDataArray;
     public static ArrayList<QuestionItem> questionItemFinalArray;
 
+
+
     //    CircleLayoutManager circleLayoutManager;// = new CircleLayoutManager(context);
     //    private AdView mAdView;
 //    AdRequest adRequest;
@@ -751,8 +753,19 @@ public class MainActivity extends AppCompatActivity {
     public void basicGkClicked() {
         questionItemDataArray = parseQuestionArray("basic_gk");
         questionItemFinalArray = createRandomTimeArray();
+
+
+
         Intent intent = new Intent(this, QuizActivity.class);
         Constant.arrayXyz = questionItemFinalArray;
+        /*for (QuestionItem value : Constant.arrayXyz) {
+            tempQuestionItemFinalArray.add(value);
+        }
+        Constant.questionConstantArray
+                = (ArrayList<QuestionItem>)Constant.arrayXyz.clone(); */
+        //tempQuestionItemFinalArray = new ArrayList<QuestionItem>();
+     //   Constant.questionConstantArray = tempQuestionItemFinalArray;
+
         intent.putExtra("screenTitle", "Basic General Knowledge");
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -925,7 +938,9 @@ public class MainActivity extends AppCompatActivity {
     public void playSound() {
         if (MainActivity.sharedPreferences.getBoolean(soundHomeActivity, false)) {
             if (player != null) {
-                player.stop();
+                if (player.isPlaying()) {
+                    player.stop();
+                }
                 //  player.release();
             }
             int idSoundBg = getApplicationContext().getResources().getIdentifier("com.mobiapps360.GKQuiz:raw/" + "bgmusic", null, null);
@@ -995,7 +1010,9 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
         closeFab();
         if (player != null) {
-            player.stop();
+            if(player.isPlaying()) {
+                player.stop();
+            }
         }
         // Log.i("eerrr","onStop########");
     }

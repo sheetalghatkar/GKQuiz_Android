@@ -101,7 +101,8 @@ public class QuizActivity extends AppCompatActivity {
     Handler handlerNoConnection;
     int previousIndex = 0;
     ImageButton imgBtnReload;
-
+    public static ArrayList<QuestionItem> tempQuestionItemDataArray;
+    public static ArrayList<QuestionItem> tempQuestionItemFinalArray;
     public static SharedPreferences sharedPreferences = null;
     public static final String myPreferences = "myPref";
     public static final String soundQuizActivity = "soundQuizActivityKey";
@@ -162,7 +163,16 @@ public class QuizActivity extends AppCompatActivity {
                                 public void onAnimationEnd(Animator animation) {
                                     imgBtnReload.setVisibility(View.GONE);
                                     imgBtnReload.setAlpha(1.0f);
+                                 //   questionItemModelArray = new ArrayList<QuestionItem>(Constant.questionConstantArray);
+
+                                    tempQuestionItemFinalArray = new ArrayList<QuestionItem>();
+                                    tempQuestionItemDataArray = new ArrayList<QuestionItem>();
+                                    tempQuestionItemDataArray = parseQuestionArray1("basic_gk");
+                                    tempQuestionItemFinalArray = createRandomTimeArray1();
+                                    quizAdapter.setListMenuItem(tempQuestionItemFinalArray);
+                                    recyclerView.setAdapter(quizAdapter);
                                     Glide.with(QuizActivity.this).clear(imgBtnReload);
+                                    recyclerView.setNestedScrollingEnabled(true);
                                 }
                             });
                 }
@@ -329,6 +339,7 @@ public class QuizActivity extends AppCompatActivity {
                     case MotionEvent.ACTION_UP: {
                         ((ImageButton) v).setAlpha((float) 1.0);
                         Glide.with(QuizActivity.this).load(R.drawable.reload).into(imgBtnReload);
+                        recyclerView.setNestedScrollingEnabled(false);
                         recyclerView.smoothScrollToPosition(0);
                     }
                 }
@@ -337,7 +348,91 @@ public class QuizActivity extends AppCompatActivity {
         });
         //------------------------------------------
     }
+    public ArrayList<QuestionItem> createRandomTimeArray1() {
+        System.out.println("Inside createarray---+" + tempQuestionItemDataArray);
+        int maxCount = tempQuestionItemDataArray.size();
+        tempQuestionItemFinalArray = new ArrayList<QuestionItem>();
+        ArrayList<Integer> selectedArrayOfIndex = new ArrayList<Integer>();
+        for (int i = 0; i < maxCount; i++) {
 
+            Boolean isQuestionSelected = false;
+            do {
+                Random rand = new Random();
+                int random = rand.nextInt(maxCount);
+                if (!(selectedArrayOfIndex.contains(random))) {
+                    selectedArrayOfIndex.add(random);
+                    tempQuestionItemFinalArray.add(tempQuestionItemDataArray.get(random));
+                    isQuestionSelected = true;
+                }
+
+            } while (!isQuestionSelected);
+        }
+        return tempQuestionItemFinalArray;
+    }
+    public String readFile(String fileName) throws IOException {
+        System.out.println("----inside readFile---");
+        BufferedReader reader = null;
+        reader = new BufferedReader(new InputStreamReader(getAssets().open(fileName), "UTF-8"));
+
+        String content = "";
+        String line;
+        while ((line = reader.readLine()) != null) {
+            content = content + line;
+        }
+        return content;
+    }
+    public ArrayList parseQuestionArray1(String fileName) {
+
+        String strJson = null;
+        ArrayList<QuestionItem> tempQuestionItemDataArray;
+        tempQuestionItemDataArray = new ArrayList<>();
+
+        try {
+            strJson = readFile(fileName + ".json");
+            //  System.out.println("parseGuessTimeArray strJson****"+strJson);
+
+            String data = "";
+            try {
+
+                // Create the root JSONObject from the JSON string.
+                JSONObject jsonRootObject = new JSONObject(strJson);
+                //Get the instance of JSONArray that contains JSONObjects
+                JSONArray jsonArray = jsonRootObject.optJSONArray(fileName);
+                System.out.println("jsonArray#####" + jsonArray);
+
+                //Iterate the jsonArray and print the info of JSONObjects
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    try {
+                        //  System.out.println("jsonObject#####"+jsonObject);
+                        JSONArray jOptions = jsonObject.getJSONArray("option");
+                        ArrayList<QuestionOptionModel> listOptions = new ArrayList<QuestionOptionModel>();
+
+                        for (int iCnt = 0; iCnt < jOptions.length(); iCnt++) {
+                            if (jOptions.length() != 0) {
+                                JSONObject jsonOptionObject = jOptions.getJSONObject(iCnt);
+                                QuestionOptionModel questionOptionModel = new QuestionOptionModel(jsonOptionObject.getString("optionStr"), jsonOptionObject.getInt("optionStatus"));
+                                listOptions.add(questionOptionModel);
+                            }
+                        }
+                        QuestionItem questionItem = new QuestionItem(jsonObject.getString("question"), listOptions, jsonObject.getInt("answer"),jsonObject.getBoolean("isReadOnly"));
+                        //  System.out.println("guessTimeItem!!!!!"+guessTimeItem);
+                        //  System.out.println("yyyyyyy"+quizItem.arrayCaption);
+                        tempQuestionItemDataArray.add(questionItem);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                System.out.println("----guessTimeDataArray---" + tempQuestionItemDataArray);
+                return tempQuestionItemDataArray;
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return tempQuestionItemDataArray;
+    }
     void reloadRecycleView(int updatePosition, boolean isShowNextIndex) {
         //System.out.println("updatePosition***" + updatePosition);
         int delayToShowNext = 600;

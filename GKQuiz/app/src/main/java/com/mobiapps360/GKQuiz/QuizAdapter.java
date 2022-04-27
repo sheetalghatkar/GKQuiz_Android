@@ -273,10 +273,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                             Constant.arrayXyz.set(getBindingAdapterPosition(), questionItemModelTemp);
                             notifyItemChanged(getBindingAdapterPosition());
                             if (questionItemModelTemp.getAnswer() == 0) {
-                                btnOption1.setEnabled(false);
-                                btnOption2.setEnabled(false);
-                                btnOption3.setEnabled(false);
-                                btnOption4.setEnabled(false);
+                                disableOptions();
                                 quizActivity.playSoundOptionClick("perfect");
                                 quizActivity.reloadRecycleView(getBindingAdapterPosition(), true);
                             } else {
@@ -336,10 +333,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                             Constant.arrayXyz.set(getBindingAdapterPosition(), questionItemModelTemp);
                             notifyItemChanged(getBindingAdapterPosition());
                             if (questionItemModelTemp.getAnswer() == 1) {
-                                btnOption1.setEnabled(false);
-                                btnOption2.setEnabled(false);
-                                btnOption3.setEnabled(false);
-                                btnOption4.setEnabled(false);
+                                disableOptions();
                                 quizActivity.playSoundOptionClick("well_done");
                                 quizActivity.reloadRecycleView(getBindingAdapterPosition(), true);
                             } else {
@@ -398,10 +392,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                             Constant.arrayXyz.set(getBindingAdapterPosition(), questionItemModelTemp);
                             notifyItemChanged(getBindingAdapterPosition());
                             if (questionItemModelTemp.getAnswer() == 2) {
-                                btnOption1.setEnabled(false);
-                                btnOption2.setEnabled(false);
-                                btnOption3.setEnabled(false);
-                                btnOption4.setEnabled(false);
+                                disableOptions();
                                 quizActivity.playSoundOptionClick("great_job");
                                 quizActivity.reloadRecycleView(getBindingAdapterPosition(), true);
                             } else {
@@ -465,10 +456,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                             if (questionItemModelTemp.getAnswer() == 3) {
                                 // System.out.println("4 correct-----");
                                 // ((Button) v).setTextColor(context.getResources().getColor(R.color.green_ans));
-                                btnOption1.setEnabled(false);
-                                btnOption2.setEnabled(false);
-                                btnOption3.setEnabled(false);
-                                btnOption4.setEnabled(false);
+                                disableOptions();
                                 quizActivity.playSoundOptionClick("excellent");
                                 quizActivity.reloadRecycleView(getBindingAdapterPosition(), true);
                             } else {
@@ -531,10 +519,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                             Constant.arrayXyz.set(getBindingAdapterPosition(), questionItemModelTemp);
                             notifyItemChanged(getBindingAdapterPosition());
                             if (questionItemModelTemp.getAnswer() == 0) {
-                                btnOption1.setEnabled(false);
-                                btnOption2.setEnabled(false);
-                                btnOption3.setEnabled(false);
-                                btnOption4.setEnabled(false);
+                                disableOptions();
                                 quizActivity.playSoundOptionClick("perfect");
                                 quizActivity.reloadRecycleView(getBindingAdapterPosition(), true);
                             } else {
@@ -594,10 +579,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                             Constant.arrayXyz.set(getBindingAdapterPosition(), questionItemModelTemp);
                             notifyItemChanged(getBindingAdapterPosition());
                             if (questionItemModelTemp.getAnswer() == 1) {
-                                btnOption1.setEnabled(false);
-                                btnOption2.setEnabled(false);
-                                btnOption3.setEnabled(false);
-                                btnOption4.setEnabled(false);
+                                disableOptions();
                                 quizActivity.playSoundOptionClick("well_done");
                                 quizActivity.reloadRecycleView(getBindingAdapterPosition(), true);
                             } else {
@@ -656,10 +638,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                             Constant.arrayXyz.set(getBindingAdapterPosition(), questionItemModelTemp);
                             notifyItemChanged(getBindingAdapterPosition());
                             if (questionItemModelTemp.getAnswer() == 2) {
-                                btnOption1.setEnabled(false);
-                                btnOption2.setEnabled(false);
-                                btnOption3.setEnabled(false);
-                                btnOption4.setEnabled(false);
+                                disableOptions();
                                 quizActivity.playSoundOptionClick("great_job");
                                 quizActivity.reloadRecycleView(getBindingAdapterPosition(), true);
                             } else {
@@ -723,10 +702,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                             if (questionItemModelTemp.getAnswer() == 3) {
                                 // System.out.println("4 correct-----");
                                 // ((Button) v).setTextColor(context.getResources().getColor(R.color.green_ans));
-                                btnOption1.setEnabled(false);
-                                btnOption2.setEnabled(false);
-                                btnOption3.setEnabled(false);
-                                btnOption4.setEnabled(false);
+                                disableOptions();
                                 quizActivity.playSoundOptionClick("excellent");
                                 quizActivity.reloadRecycleView(getBindingAdapterPosition(), true);
                             } else {
@@ -740,6 +716,20 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                     return true;
                 }
             });
+
+
         }
+
+        void disableOptions() {
+            btnOption1.setEnabled(false);
+            btnOption2.setEnabled(false);
+            btnOption3.setEnabled(false);
+            btnOption4.setEnabled(false);
+
+            linearLayout1.setEnabled(false);
+            linearLayout2.setEnabled(false);
+            linearLayout3.setEnabled(false);
+            linearLayout4.setEnabled(false);
+        };
     }
 }
