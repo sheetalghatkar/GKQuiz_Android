@@ -108,6 +108,7 @@ public class QuizActivity extends AppCompatActivity {
     public static final String soundQuizActivity = "soundQuizActivityKey";
     int clickCount = 1;
     boolean isReloadClicked = false;
+    String selected_File_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,6 +125,7 @@ public class QuizActivity extends AppCompatActivity {
         btnQuizBack = findViewById(R.id.btnQuizBack);
         txtViewQuizTitle = findViewById(R.id.txtViewQuizTitle);
         txtViewQuizTitle.setText(getIntent().getStringExtra("screenTitle"));
+        selected_File_name = getIntent().getStringExtra("file_name");
         imgVwQuizLoader = findViewById(R.id.imgVwQuizLoader);
         viewQuizLoader = findViewById(R.id.viewLoaderQuizBg);
         imgBtnReload = findViewById(R.id.imgBtnReload);
@@ -167,7 +169,7 @@ public class QuizActivity extends AppCompatActivity {
 
                                     tempQuestionItemFinalArray = new ArrayList<QuestionItem>();
                                     tempQuestionItemDataArray = new ArrayList<QuestionItem>();
-                                    tempQuestionItemDataArray = parseQuestionArray1("basic_gk");
+                                    tempQuestionItemDataArray = parseQuestionArray1(selected_File_name);
                                     tempQuestionItemFinalArray = createRandomTimeArray1();
                                     quizAdapter.setListMenuItem(tempQuestionItemFinalArray);
                                     recyclerView.setAdapter(quizAdapter);

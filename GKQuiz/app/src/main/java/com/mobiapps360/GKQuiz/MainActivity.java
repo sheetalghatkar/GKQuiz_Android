@@ -767,6 +767,7 @@ public class MainActivity extends AppCompatActivity {
      //   Constant.questionConstantArray = tempQuestionItemFinalArray;
 
         intent.putExtra("screenTitle", "Basic General Knowledge");
+        intent.putExtra("file_name", "basic_gk");
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -786,6 +787,7 @@ public class MainActivity extends AppCompatActivity {
         questionItemFinalArray = createRandomTimeArray();
         Intent intent = new Intent(this, QuizActivity.class);
         intent.putExtra("screenTitle", "Health & Human Body");
+        intent.putExtra("file_name", "human_body");
         Constant.arrayXyz = questionItemFinalArray;
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -807,6 +809,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, QuizActivity.class);
         Constant.arrayXyz = questionItemFinalArray;
         intent.putExtra("screenTitle", "Space");
+        intent.putExtra("file_name", "space");
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -827,6 +830,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, QuizActivity.class);
         Constant.arrayXyz = questionItemFinalArray;
         intent.putExtra("screenTitle", "Wild & Aquatic Life");
+        intent.putExtra("file_name", "wild_aquatic");
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -847,6 +851,8 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, QuizActivity.class);
         Constant.arrayXyz = questionItemFinalArray;
         intent.putExtra("screenTitle", "World's Geography");
+        intent.putExtra("file_name", "world_geography");
+
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -867,6 +873,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, QuizActivity.class);
         Constant.arrayXyz = questionItemFinalArray;
         intent.putExtra("screenTitle", "English Grammar");
+        intent.putExtra("file_name", "eglish_grammar");
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
